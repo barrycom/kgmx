@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选择支付方式- ${site.name} - Powered by kgmx</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="${resSys}/geo.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<link href="/${res}/css/suncss2.css" rel="stylesheet" type="text/css" />
+<script src="/${res}/js/jquery.tab2.js" type="text/javascript"></script>
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->  
+
+<head>
+
+<body > 
+[#include "../include/header.html"/] 
+   <!-------------------------内页主体内容------------------------>
+<div class="pagewide pad-top pad-bottom">
+
+
+
+
+        <!----------步骤----------->
+        <div class="course_bz">
+                
+                <div class="course_bz_03 fl"></div>
+                <div class="course_bz_04 fl"></div>
+                <div class="course_bz_05 fl"></div>
+                <div class="both"></div>
+ 
+        </div>
+        
+        
+        <div class="course_bz_txt fl">购买课程</div>
+        <div class="course_bz_txt2 fl">确认并支付</div>
+        <div class="course_bz_txt3 fl">订单完成</div>
+        <div class="both"></div>
+        <!----------步骤----------->
+
+<div class="person_bookdetail2 bg-gray">
+               <img src="/${res}/images/tu12.png" class="course_left_banner fl">
+               <div class="fl course_right_book">
+                       <div style=" margin-bottom:10px;">您的订单已经购买成功！</div>
+                       <div>
+                             <ul class="course_right_booklist">
+                                   <li><span class="course_right_booklist_yellow">订单编号：</span> ${orderNumber!}</li>
+                                   <li><span class="course_right_booklist_yellow">购买时间：</span>${orderTime!}</li>
+                                   <li><span class="course_right_booklist_yellow">课程名称：</span>${content.title!}</li>
+                                   <li><span class="course_right_booklist_yellow">导师：</span>${content.channel.title!}</li>
+                                   <li><span class="course_right_booklist_yellow">课时：</span>${content.attr.pxks!}</li>
+                                   <li><span class="course_right_booklist_yellow">实付金额：</span><span class="course_right_booklist_red">￥${content.chargeAmount!}</span></li>
+                                   <li><span class="course_right_booklist_yellow">开班时间：</span>${content.attr.opentime?substring(0,7)}</li>
+                                   <div class="both"></div>
+                                   <button type="submit" class="course_start text-left white fl">开启您的课程之旅</button>
+                                   <div class="both"></div>
+                             </ul>
+                       </div> 
+               </div>
+               <div class="both"></div>
+         </div>
+         
+         
+         
+         
+         
+</div>
+<!-------------------------内页主体内容------------------------>
+
+
+
+ 
+ 
+[#include "../include/footer.html"/] 
+</body>
+</html>

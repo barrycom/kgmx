@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>个人中心 - ${site.name} - Powered by kgmx</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="${resSys}/geo.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]--> 
+
+</head>
+<script type="text/javascript">
+    $(function() {
+    	 
+    });
+    function showArea(province,city,town){
+    	 
+    	setup();
+    	 
+    	if(province!=null && province !=""){
+    		preselect(province);
+    		 
+    		  
+    		if(city!=null && city !=""){ 
+    			  set_select_checked("s2",city)
+    			  change(2);
+    			   if(town!=null && town !=""){ 
+    					set_select_checked("s3",town)
+    			   }
+    		}
+    		promptinfo();
+    	}
+    } 
+    function set_select_checked(selectId, checkValue){  
+        var select = document.getElementById(selectId);  
+
+        for (var i = 0; i < select.options.length; i++){  
+            if (select.options[i].value == checkValue){  
+                select.options[i].selected = true;  
+                break;  
+            }  
+        }  
+    }
+</script>
+<body onload="showArea('${user.attr.province!}','${user.attr.city!}','${user.attr.town!}');"> 
+[#include "../include/header.html"/]
+<!-------------------------内页锚点--------------------------->
+<div class="ny_nav bg-wgy pagewide2">
+        <div class="pagewide">
+                <div class="ny_nav_icon">
+                      <a href="http://www.kegustar.com/">首页</a> > <a href="${base}/member/index.jspx">个人中心</a> > <a href="${base}/member/index.jspx">账号管理</a> > <span class="ny_nav_yellow yellow">基本信息</span>
+                </div>
+        </div>
+</div>
+
+<!-------------------------内页主体内容------------------------>
+<div class="pagewide pad-top pad-bottom">
+
+
+         <div class="fl person_left">
+               <!--------学习记录------->
+               <div class="person_left_title white">学习记录</div>
+               <ul class="person_left_list">
+                     <a href="${base}/member/my_order_list.jspx"><li>我的高级课</li></a>
+                     <a href="${base}/member/my_order_kj_list.jspx"><li>我的课件</li></a>
+                     <a href="${base}/member/collection_list.jspx"><li>我的收藏</li></a>
+                      <a href="${base}/member/myguestbook.jspx"><li>我的提问</li></a>
+               </ul>
+               <!--------学习记录------->
+               <!--------消费记录------->
+               <div class="person_left_title2 white">消费记录</div>
+               <ul class="person_left_list">
+                     <a href="${base}/member/order_list.jspx"><li>我的订单</li></a>
+               </ul>
+               <!--------消费记录------->
+               <!--------账号管理------->
+               <div class="person_left_title3 white">账号管理</div>
+               <ul class="person_left_list">
+                     <a href="${base}/member/index.jspx"><li class="active">基本信息</li></a>
+                     <a href="${base}/member/portrait.jspx"><li>个人头像</li></a>
+                     <a href="${base}/member/pwd.jspx"><li>安全信息</li></a>
+               </ul>
+               <!--------账号管理-------> 
+               <div class="person_left_title4 white">消息中心</div>
+               <ul class="person_left_list"> 
+                     <a href="${base}/member/message_mng.jspx"><li class="active">我的信息</a></li>
+                     <a href="${base}/guestbook.jspx"><li>意见反馈</li></a>
+               </ul> 
+               <!--------消息中心------->
+         </div>
+         
+         
+         <div class="fr person_right2">
+         
+	<!-------------------------内页锚点--------------------------->
+ <div class="person_right_title">我的信息</div>
+                  
+                 <iframe id="framex"  scrolling="no"style="overflow-x : hidden; overflow-y : hidden;scrolling="no"" frameborder="0" src="${base}/member/message_list.jspx?box=0" width="100%" height="600"></iframe>
+         </div>
+         
+         
+         <div class="both"></div>
+         
+
+         
+</div>
+<!-------------------------内页主体内容------------------------> 
+   
+[#include "../include/footer.html"/]
+</body>
+</html>

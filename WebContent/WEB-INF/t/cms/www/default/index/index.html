@@ -1,0 +1,759 @@
+<!DOCTYPE HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页 - ${site.name} - Powered by kgmx</title>
+<meta http-equiv="keywords" content="${site.keywords!}" />
+<meta http-equiv="description" content="${site.description!}" />
+
+
+<link href="/${res}/css/styles.css" rel="stylesheet">
+<link href="/${res}/css/slick.css" rel="stylesheet">
+<link href="/${res}/css/slick-theme.css" rel="stylesheet">
+<script src="/${res}/js/jquery-1.12.4.min.js"></script>
+<script src="/${res}/js/script.js"></script>
+<script src="/${res}/js/slick.min.js"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+var typeshows = 1;
+	$(function() { 
+				var cNode =document.getElementById('live-slider').getElementsByTagName('li');
+var bool = true;
+        for( var i=0; i<cNode.length; i++){
+         
+
+            if(cNode[i].className =="active"){
+                  bool = false; 
+                $('.live-box>.fl img').eq(i).show();
+                var liveLink0 = $('.live-slider ul li a').eq(i).attr('href');
+                $('.live-play a').attr('href', liveLink0);
+                  break;
+            }
+        }	
+if(bool){
+    $('.live-box>.fl img').eq(0).show();
+}                      
+	});
+ function mouseOver(){
+            document.getElementById("imgvedio").src="/${res}/images/sicon_34_b.png";            
+        }
+        function mouseOut()
+        {
+            document.getElementById('imgvedio').src ="/${res}/images/sicon_34.png";
+        }
+</script>
+<head>
+<body class="index">
+
+	<header>
+		<div class="topbar clearfix">
+			<!-- 未登录 -->
+			<div class="fl">
+				<span>欢迎您访问嗑股明星官网！</span> [#if user??] <span>欢迎您：${user.username}</span>
+				<a href="${base}/logout.jspx">退出</a> <a
+					href="${base}/member/index.jspx">个人中心</a> [#else] <a
+					href="${base}/login.jspx">登录</a> <a href="${base}/register.jspx">注册</a>
+				[/#if]
+			</div>
+			<div class="fr">
+				<ul>
+					[@cms_channel id='106']
+					<li><a href="${tag_bean.url}" target="_blank">${tag_bean.name}</a></li>[/@cms_channel]
+					[@cms_channel id='96']
+					<li><a href="${tag_bean.url}" target="_blank">${tag_bean.name}</a></li>[/@cms_channel]
+					<li><a onclick="AddFavorite(window.location,document.title)"
+						href="javascript:void(0)">加入收藏</a></li>
+				</ul>
+			</div>
+			<div class="tel fr">
+				<span class="font-yellow"><!--欢迎致电：400-66668888--></span>
+			</div>
+		</div>
+	</header>
+	[#include "../include/nav.html"]
+
+	<!-- 顶部轮播 -->
+	<div class="top-slider">
+		<div class="slider-wrapper">
+			<div id="top-slider">
+
+				[@cms_channel_list parentId='129' orderBy='4'] [#list tag_list as c]
+				<div>
+					<img src="${c.contentImg!}" alt="" />
+				</div>
+				[/#list] [/@cms_channel_list]
+
+			</div>
+		</div>
+	</div>
+
+	<!-- 最新头条轮播 -->
+	<div class="news-slider">
+		<div class="section-wrapper clearfix">
+			<div class="newest fl">
+				最新头条
+				<div class="triangle-right"></div>
+			</div>
+			<div class="newest-list fl" id="news-slider">
+
+				[@cms_content_list count='6' orderBy='9' channelId='135'
+				channelOption='1' dateFormat='yyyy-MM-dd HH:mm']
+				<div>
+					[#list tag_list as a] [#if a_index==0 || a_index==1]
+					<div class="fl">
+						<a href="${a.url}" target="_blank">[@text_cut s=a.title
+							len='15' append='...' /]<span class="font-gray">${a.date?string(dateFormat)}</span>
+						</a>
+					</div>
+					[/#if] [/#list]
+				</div>
+				<div>
+					[#list tag_list as a] [#if a_index==2 || a_index==3]
+					<div class="fl">
+						<a href="${a.url}" target="_blank">[@text_cut s=a.title
+							len='15' append='...' /]<span class="font-gray">${a.date?string(dateFormat)}</span>
+						</a>
+					</div>
+					[/#if] [/#list]
+				</div>
+				<div>
+					[#list tag_list as a] [#if a_index==4 || a_index==5]
+					<div class="fl">
+						<a href="${a.url}" target="_blank">[@text_cut s=a.title
+							len='15' append='...' /]<span class="font-gray">${a.date?string(dateFormat)}</span>
+						</a>
+					</div>
+					[/#if] [/#list]
+				</div>
+				[/@cms_content_list]
+			</div>
+		</div>
+	</div>
+
+	<!-- 在线直播 -->
+	<div class="live">
+		<div class="section-header">
+			<h3>在线直播</h3>
+			<h5>
+				LIVE <span class="font-yellow-2">ONLINE</span>
+			</h5>
+			<div class="border-line"></div>
+			<div class="border-line-short"></div>
+		</div>
+		<div class="section-wrapper live-box clearfix">
+			<div class="fl">
+
+
+
+				<!-- [@cms_content_list count='4' orderBy='4' titLen='18' channelId='75'
+				channelOption='1'] [#list tag_list as a] <img
+					src="${(a.titleImg)!'${site.defImg!}'}" alt="" /> [/#list]
+				[/@cms_content_list]
+				 -->
+				
+				[@cms_channel_catalog_live_list orderBy='4' titLen='18' parentId='75' channelOption='1' showType=1]
+			 
+			[#list tag_list as a]
+			
+			      <img src="${(a.channel.attr.zbkctp)!'${site.defImg!}'}" alt="" /> 
+			   
+			[/#list] 
+		[/@cms_channel_catalog_live_list]
+				
+				
+
+				<div class="live-progress">
+					<img src="/${res}/images/sicon_35.png" />
+				</div>
+				<div class="live-play">
+					<a href=""><img id="imgvedio"  onmouseover="mouseOver()" onmouseout="mouseOut()" src="/${res}/images/sicon_34.png" /></a>
+				</div>
+
+			</div>
+			<div class="fr">
+				<ul>
+
+
+					[@cms_content_list count='4' orderBy='4' titLen='18'  charge='1' option='1' channelId='75'
+					channelOption='1'] [#list tag_list as a]
+					<li>
+						<div class="fl">
+							<img src="${(a.channel.titleImg)!'${site.defImg!}'}" />
+						</div>
+						<div class="fr">
+							<h4 style="height:60px;">[@text_cut s=a.title len='30' append='……' /]<span class="fr" style="color:#666; width:70px;   font-size:12px; font-size:12px; margin-top:4px;"
+>  [#if a.catalog[0]??]${a.catalog[0].lectureDate!}[/#if]</span></h4>
+                                                       
+							<h5>${a.channel.title!}</h5>
+							<a href="${base}/member/my_order_sy_video.jspx?id=${a.id!}">在线观看</a>
+						</div>
+					</li> [/#list] [/@cms_content_list]
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- 直播列表 -->
+	<div class="live-slider">
+		<ul class="section-wrapper row-list" id="live-slider">
+    
+          [@cms_channel_catalog_live_list orderBy='4' titLen='18' parentId='75' channelOption='1' showType=1]
+			 
+			[#list tag_list as a]
+              [#if a.showType==3]  
+				   <li>  
+				        <a href="javascript:void(0);"> 
+	                      <h3>${a.channel.title!}</h3>
+					      <h4 class="font-yellow">${a.courseCategory!}</h4>
+					      <h4>${a.startTime!}</h4>
+					      <h5>${a.lectureDate!}</h5> 
+	                      <h4><font color="#ccc">（尚未开始）</font></h4> 
+	                     </a>
+				   </li> 
+
+
+			    [#elseif a.showType==2]  
+			      <li class="active">  
+			         <a href="${base}/member/my_order_livetwovideo.jspx?channelId=${a.channel.id!}">
+                      <h3>${a.channel.title!}</h3>
+				      <h4 class="font-yellow">${a.courseCategory!}</h4>
+				      <h4>${a.startTime!}</h4>
+				      <h5>${a.lectureDate!}</h5>  
+                      <h4><font color="#F75000">正在直播</font></h4> 
+                     </a>
+			      </li> 
+                [#elseif a.showType==1]  
+                   <li>  
+                     <a href="javascript:void(0);" > 
+                      <h3>${a.channel.title!}</h3>
+				      <h4 class="font-yellow">${a.courseCategory!}</h4>
+				      <h4>${a.startTime!}</h4>
+				      <h5>${a.lectureDate!}</h5>  
+                      <h4><font color="#ccc">（直播结束）</font></h4> 
+                     </a>
+                        
+			      </li> 
+				[/#if] 
+			[/#list] 
+		[/@cms_channel_catalog_live_list]
+		</ul>
+	</div>
+
+	<!-- 人气课程 -->
+	<div class="popular">
+		<div class="section-header">
+			<h3>人气视频</h3>
+			<h5>
+				POPULAR <span class="font-yellow-2">VIDEO</span>
+			</h5>
+			<div class="border-line"></div>
+			<div class="border-line-short"></div>
+		</div>
+		<div class="popular-list section-wrapper">
+			<ul class="row-list">
+
+				<!-- --------------------------------------------------------------------------------------------- -->
+
+
+				 
+
+
+				<!-- --------------------------------------------------------------------------------------------- -->
+				[@cms_content_list count='3' orderBy='9' titLen='18' channelId='75' charge='1' option='1' channelOption='1'] 
+					 [#list tag_list as a] 
+						 [#if a.catalog?size gt 0] 
+							[#list a.catalog as c]
+							    [#if c_index==0]
+									<li>
+										<div class="fl">
+											<!-- <img src="/${res}/images/simg_30.jpg"/> -->
+											<img src="${(a.channel.attr.bstx)!'${site.defImg!}'}" alt="" />
+										</div>
+										<div class="fr">
+											<h4>[@text_cut s=a.title len='18' append='...' /]</h4>
+											<h5 class="font-yellow-2">${a.channel.title!}</h5>
+											<div class="popular-star">
+												[#if a.channel.attr??] [#if a.channel.attr.score??] [#if
+												a.channel.attr.score=='1'] <img src="/${res}/images/sicon_13.png"
+													alt="" /> [#elseif a.channel.attr.score=='2'] <img
+													src="/${res}/images/sicon_13.png" alt="" /> <img
+													src="/${res}/images/sicon_13.png" alt="" /> [#elseif
+												a.channel.attr.score=='3'] <img src="/${res}/images/sicon_13.png"
+													alt="" /> <img src="/${res}/images/sicon_13.png" alt="" /> <img
+													src="/${res}/images/sicon_13.png" alt="" /> [#elseif
+												a.channel.attr.score=='4'] <img src="/${res}/images/sicon_13.png"
+													alt="" /> <img src="/${res}/images/sicon_13.png" alt="" /> <img
+													src="/${res}/images/sicon_13.png" alt="" /> <img
+													src="/${res}/images/sicon_13.png" alt="" /> [#elseif
+												a.channel.attr.score=='5'] <img src="/${res}/images/sicon_13.png"
+													alt="" /> <img src="/${res}/images/sicon_13.png" alt="" /> <img
+													src="/${res}/images/sicon_13.png" alt="" /> <img
+													src="/${res}/images/sicon_13.png" alt="" /> <img
+													src="/${res}/images/sicon_13.png" alt="" /> [/#if] [#else] <img
+													src="/${res}/images/sicon_13.png" alt="" /> [/#if] [#else] <img
+													src="/${res}/images/sicon_13.png" alt="" /> [/#if]
+											</div>
+											<div class="popular-menu">
+												<span>
+                                                                                                [#if a.ups?length  > 5]
+                                                                                                         ${(a.ups/10000)?string('0.00')!}万
+                                                                                                [#else]${a.ups!}
+                                                                                                 [/#if]
+</span> 
+<span>
+     [#if a.views?length  >5]
+        ${(a.views/10000)?string('0.00')!}万[#else]${a.views!}[/#if]</span>
+											</div>
+											<a
+												href="${base}/member/my_order_sy_video.jspx?id=${a.id!}"
+												title="${a.title}" target="_blank">查看详情</a>
+										</div>
+									</li> 
+								 [/#if] 
+							[/#list] 
+						 [/#if] 
+					[/#list] 
+				[/@cms_content_list]
+			</ul>
+		</div>
+	</div>
+
+
+	<!-- 资讯头条 -->
+	<div class="information">
+		<div class="triangle-bottom"></div>
+		<div class="section-wrapper clearfix">
+			<div class="fl information-news">
+				<h4>
+					<span>资讯头条</span> <a href="${base}/zxtt/index.jhtml"
+						class="fr more">更多>></a>
+				</h4>
+
+				[@cms_content_list count='5' orderBy='4' channelId='135'
+				channelOption='1' ] [#list tag_list as a] [#if a_index==0]
+				<div class="top-new clearfix">
+					<a href="${a.url}#">
+						<div class="fl">
+							<img src="${a.titleImg!}" alt="" />
+						</div>
+						<div class="fr">
+							<h4>[@text_cut s=a.title len='20' append='...' /]</h4>
+							<p>[@text_cut s=a.description len='130' append='...' /]</p>
+						</div>
+					</a>
+				</div>
+				[/#if] [/#list] [/@cms_content_list] [@cms_content_list count='5'
+				orderBy='4' channelId='135' channelOption='1' ]
+				<div class="news-list">
+					<ul>
+						[#list tag_list as a] [#if a_index!=0]
+						<li><a href="${a.url!}">
+								<h4>[@text_cut s=a.title len='30' append='...' /]</h4>
+								<p>[@text_cut s=a.description len='70' append='...' /]</p>
+						</a></li> [/#if] [/#list]
+					</ul>
+				</div>
+				[/@cms_content_list]
+			</div>
+			<div class="fr information-qa">
+				<h4>
+					<span>互动问答</span> <a href="${base}/web/hdwd.jspx" class="fr more">更多>></a>
+					<div class="fr"></div>
+				</h4>
+				<ul class="qa-list">
+					 
+                                         [#list guestbooklist as books] 
+					<li>
+						<div class="qa-header">
+							<span class="font-gray"> ${books.ip!}</span>
+							<span class="font-gray">${books.createTime!}</span>
+						</div>
+						<div class="qa-question">${books.contentHtml!}</div>
+						<div class="qa-answer">[#if books.replayTime??]
+							${books.ctg.name!}：${books.replyHtml!} [/#if]</div>
+					</li> [/#list] 
+				</ul>
+				<form id="guestbookForm" name="guestbookForm"  action="${base}/guestbook.jspx"
+					method="post">
+                                       <input type=hidden name='mypretime' value='0'>
+					<div class="qa-submit clearfix">  
+						<textarea cols="" rows="" name="content"  id="content" maxlength="255"
+							vld="{maxlength:255}" placeholder="请输入您的问题或者建议！"></textarea>
+						<select name="ctgId" id="ctgId" class="fl">
+							<option value="">请选择导师</option>
+							[@cms_guestbook_ctg_list siteId=site.id] [#list tag_list as ctg]
+							<option value="${ctg.id}">${ctg.name}</option> [/#list]
+
+							[/@cms_guestbook_ctg_list]
+						</select> <input type="button" class="fr" id="submits" value="发布" /> 
+
+					</div>
+				</form>
+				<script>
+					$(function() {
+ Today = new Date(); 
+var NowHour = Today.getHours(); 
+var NowMinute = Today.getMinutes(); 
+var NowSecond = Today.getSeconds(); 
+var mysec = (NowHour*3600)+(NowMinute*60)+NowSecond; 
+						$("#submits").click(function() { 
+                                                      if("${user!}"==""){
+                                                             alert("登录后才可留言！");
+                                                             return false;
+                                                      } 
+                                                      if ($("#ctgId").val()==""){
+                                                            alert("请选择提问导师！");
+                                                             return false;
+                                                       }  
+                                                      if ($("#content").val()==""){
+                                                            alert("请填写问题或建议！");
+                                                             return false;
+                                                       }  
+
+if((mysec-document.guestbookForm.mypretime.value)>20)  
+{ 
+           document.guestbookForm.mypretime.value=mysec; 
+} 
+else 
+{  
+return false; 
+} 
+
+							var options = {
+								url : '${base}/guestbook.jspx',
+								type : 'post',
+								dataType : 'json',
+								data : $("#guestbookForm").serialize(),
+								success : function(data) {
+									if (data.status == 0) {
+										alert("已成功提交问题，等待导师解答");
+										location.href = location.href;
+									} else if (data.status == 1) {
+										alert("提交失败,需登录后提交！");
+										 
+									}
+								}
+							};
+							$.ajax(options);
+							return false;
+						});
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+
+
+
+	[@cms_advertising id =2] [#if tag_bean.enabled]
+	<div class="banner-block">
+		<div class="banner-1">
+			<img src="${tag_bean.attr.image_url}" alt="" />
+		</div>
+	</div>
+	[#else] [/#if] [/@cms_advertising]
+
+
+
+	<!-- 金牌导师 -->
+	<div class="teachers">
+		<div class="section-header">
+			<h3>金牌导师</h3>
+			<h5>
+				GOLD <span class="font-yellow-2">TEACHER</span>
+			</h5>
+			<div class="border-line"></div>
+			<div class="border-line-short"></div>
+		</div>
+		<div class="section-wrapper">
+			<ul class="row-list" id="techers-slider">
+				[@cms_channel_list parentId='75' orderBy='4' count='10'] [#list
+				tag_list as c]
+                [#if c.id!=163]
+				<li>
+					<div class="triangle-left-top"></div>
+					<div class="trangle-right-bottom"></div>
+					<div class="trangle-right-top"></div> <img src="${c.attr.bstx!}"
+					alt="" />
+					<h5>${c.title!}</h5>
+				</li> [/#if][/#list] [/@cms_channel_list]
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="teachers-introduce">
+		<div class="triangle-bottom"></div>
+		<!-- dia.section-wrapper数量同金牌导师列表中导师数量相同 -->
+		[@cms_channel_list parentId='75' orderBy='4' count='10'] 
+		[#list tag_list as c]
+			<div class="section-wrapper"> 
+				<a href="${c.url!}"> <img src="${c.contentImg!}" alt="" />
+				</a>
+				<div class="video-list">
+					<ul class="row-list">
+						 
+					     
+						[@cms_content_list count='3' orderBy='4'  channelId=c.id  charge='1' option='1' channelOption='1'] 
+							 [#list tag_list as a] 
+								 [#if a.catalog?size gt 0] 
+									[#list a.catalog as c]
+									     [#if c_index==0] 
+								              <li> 
+								                 <a href="${base}/member/my_order_sy_video.jspx?id=${a.id!}&catalogId=${c.id!}"
+												title="${a.title}" target="_blank">
+								                 <img src="${a.titleImg!}" alt="" /></a>
+									             <div class="video-menu">
+										            <span>
+ 
+                        [#if a.ups?length  <5]${a.ups!}[#else]${(a.ups/10000)?string('0.00')!}万[/#if]
+                                                                                      </span> 
+                                                                                        <span>
+                        [#if a.views?length < 5]${a.views!}[#else]${(a.views/10000)?string('0.00')!}万[/#if] 
+                                                                                         </span> 
+                                                                             &nbsp;&nbsp;&nbsp;&nbsp;${a.releaseDate?string('yyyy-MM-dd')}
+									             </div>
+									             <h4>[@text_cut s=a.title
+							len='20' append='...' /]</h4>
+									          </li> 
+							             [/#if] 
+							       [/#list] 
+						        [/#if] 
+						     [/#list] 
+						[/@cms_content_list]
+					</ul>
+				</div> 
+			</div>
+		[/#list] [/@cms_channel_list]
+
+	</div>
+
+	<!-- 学术团队 -->
+	<div class="team">
+		<div class="section-wrapper">
+			<h3>学术团队</h3>
+			<h4>ACADEMIC TEAM</h4>
+			<ul id="team-slider">
+				[@cms_channel_list parentId='147' orderBy='4' count='20'] [#list
+				tag_list as c]
+
+				<li>
+					<div title="${c.description!}">
+						<img src="${c.titleImg!}" />
+					</div>
+					<h4>${c.name!}</h4>
+					<h5>${c.description!}</h5>
+				</li> [/#list] [/@cms_channel_list]
+
+			</ul>
+		</div>
+	</div>
+
+	<!-- 员工风采 -->
+	<div class="members">
+		<div class="section-header">
+			<h3>员工风采</h3>
+			<h5>
+				STAFF <span class="font-yellow-2">MIEN</span>
+			</h5>
+			<div class="border-line"></div>
+			<div class="border-line-short"></div>
+		</div>
+		<div class="section-wrapper">
+			<div class="members-introduce">
+				[@cms_channel id='139']
+				<div class="nybanner"
+					<p>${tag_bean.txt!}</p>
+					[/@cms_channel]
+				</div>
+				<div class="members-photo" id="members-slider">
+					[@cms_content_list channelId='139' orderBy='4' count='8'] [#list
+					tag_list as c]
+					<div>
+						<img src="${c.titleImg!}">
+					</div>
+					[/#list] [/@cms_content_list]
+				</div>
+				<div class="members-list">
+					<ul class="row-list">
+						<li><img src="/${res}/images/sicon_27.png">
+							<h4>盘面提示</h4>
+							<h5>（微博、短信早晚盘面解析及风险提示）</h5></li>
+						<li><img src="/${res}/images/sicon_24.png">
+							<h4>名师一对一服务</h4>
+							<h5>（学习进度回访，电话在线答疑）</h5></li>
+						<li><img src="/${res}/images/sicon_25.png">
+							<h4>专属课程制定</h4>
+							<h5>（针对学员疑问制定专属课程）</h5></li>
+						<li><img src="/${res}/images/sicon_26.png">
+							<h4>作业批复和分享</h4>
+							<h5>（作业24小时个性化批复，课中点评）</h5></li>
+						<li><img src="/${res}/images/sicon_28.png">
+							<h4>实时追踪学习效果</h4>
+							<h5>（学习效果和提醒一目了然）</h5></li>
+						<li><img src="/${res}/images/sicon_29.png">
+							<h4>模拟操盘点评</h4>
+							<h5>（实时检验学习效果，经验共享）</h5></li>
+						<li><img src="/${res}/images/sicon_30.png">
+							<h4>智慧投顾服务</h4>
+							<h5>（个股优选、内参服务、研报服务、智能仓位管理、在线互动、特权通道）</h5></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- 友情链接 -->
+		<div class="links">
+			<h3>友情链接</h3>
+			<h4>FRIENDSHIP LINK</h4>
+			<div class="section-wrapper" id="links-slider">
+				<ul class="row-list">
+					[@cms_friendlink_list] [#list tag_list as link]
+					<li><a href="${link.domain!}" target="_blank"><img
+							src="${link.logo!}" alt="" /></a></li> [/#list] [/@cms_friendlink_list]
+				</ul>
+				<ul class="row-list">
+					[@cms_friendlink_list] [#list tag_list as link]
+
+					<li><a href="${link.domain!}" target="_blank"><img
+							src="${link.logo!}" alt="" /></a></li> [/#list] [/@cms_friendlink_list]
+				</ul>
+			</div>
+		</div>
+		[#include "../include/footer.html"/]
+
+		<script>
+			$(document).ready(
+					function() {
+
+						// 顶部轮播
+						$("#top-slider").slick({
+							dots : true,
+							arrows : false,
+							infinite : true,
+							speed : 750,
+							slidesToShow : 1,
+							slidesToScroll : 1,
+							autoplay : true,
+							autoplaySpeed : 2000,
+						});
+
+						// 最新头条
+						$("#news-slider").slick({
+							vertical : true,
+							dots : false,
+							arrows : false,
+							infinite : true,
+							speed : 750,
+							slidesToShow : 1,
+							slidesToScroll : 1,
+							autoplay : true,
+							autoplaySpeed : 2000,
+						});
+
+						// 直播列表
+						$("#live-slider").slick({
+							dots : false,
+							arrows : true,
+							infinite : true,
+							speed : 750,
+							slidesToShow : 5,
+							slidesToScroll : 1,
+							autoplay : false,
+							autoplaySpeed : 2000,
+						});
+
+						// 导师列表
+						$("#techers-slider").slick({
+							dots : false,
+							arrows : true,
+							infinite : true,
+							speed : 750,
+							slidesToShow : 4,
+							slidesToScroll : 1,
+							autoplay : true,
+							autoplaySpeed : 6000,
+							focusOnSelect: true
+						});
+
+						// 学术团队
+						$("#team-slider").slick({
+							dots : false,
+							arrows : true,
+							infinite : true,
+							speed : 750,
+							slidesToShow : 5,
+							slidesToScroll : 1,
+							autoplay : false,
+							autoplaySpeed : 2000,
+						});
+
+						// 员工风采
+						$("#members-slider").slick({
+							centerMode : true,
+							dots : false,
+							arrows : true,
+							infinite : true,
+							speed : 0,
+							slidesToShow : 3,
+							slidesToScroll : 1,
+							autoplay : false,
+							autoplaySpeed : 2000,
+							variableWidth : true,
+						});
+
+						// 友情链接
+						$("#links-slider").slick({
+							dots : false,
+							arrows : true,
+							infinite : true,
+							speed : 750,
+							slidesToShow : 1,
+							slidesToScroll : 1,
+							autoplay : false,
+							autoplaySpeed : 2000,
+						});
+
+						 
+						 
+						$('.teachers-introduce .section-wrapper').eq(0).show(); 
+						 
+					});
+
+
+			$('#live-slider li').on('mouseover', function(){
+				var $this = $(this);
+				var thisIndex = ($this.attr('data-slick-index')*1 + $('.teachers-introduce .section-wrapper').length*1)%($('.teachers-introduce .section-wrapper').length);
+				$('.live-box>.fl>img').hide();
+				$('.live-box .fl>img').eq(thisIndex).show();
+                                var liveLink1 = $('.live-slider ul li a').eq(thisIndex).attr('href');
+                                $('.live-play a').attr('href', liveLink1 );
+
+			})
+
+			// 金牌导师 导师列表轮播回调显示对应详情
+			$('#techers-slider').on(
+				'afterChange',
+				function(event, slick, currentSlide) {
+					// console.log(currentSlide);
+					$('.teachers-introduce .section-wrapper').eq(
+							currentSlide).fadeIn(1000);
+					$('.teachers-introduce .section-wrapper').eq(
+							currentSlide).siblings('.section-wrapper')
+							.hide();
+				});
+
+			//$('#techers-slider li').on('mouseover', function(){
+			//	var $this = $(this);
+			//	var thisIndex = ($this.attr('data-slick-index')*1 + $('.teachers-introduce .section-wrapper').length*1)%($('.teachers-introduce .section-wrapper').length);
+			//	$('.teachers-introduce .section-wrapper').eq(thisIndex).fadeIn(1000);
+			//	$('.teachers-introduce .section-wrapper').eq(thisIndex).siblings('.section-wrapper').hide();
+			//})
+		</script>
+</body>
+</html>

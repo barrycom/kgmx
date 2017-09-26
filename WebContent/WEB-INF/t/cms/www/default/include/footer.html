@@ -1,0 +1,93 @@
+ 
+
+<!-- 底部 -->
+	<div class="about-us">
+		<div class="section-wrapper">
+			<div class="footer-list clearfix">
+				<div class="aboutus fl">
+					<h4>加入我们</h4>
+					<div class="border-line-short"></div>
+					<ul>
+					[@cms_channel_list parentId='96' orderBy='4']
+				        [#list tag_list as c]
+				           <li><a href="${c.url}">${c.name}</a></li>
+				         [/#list]
+			        [/@cms_channel_list] 
+					</ul>
+				</div>
+				<div class="help fl">
+					<h4>帮助中心</h4>
+					<div class="border-line-short"></div>
+					<ul>  
+						
+						[@cms_channel_list parentId='106' orderBy='4']
+				        [#list tag_list as c]
+				           <li><a href="${c.url}">${c.name}</a></li>
+				         [/#list]
+			        [/@cms_channel_list] 
+						
+						
+					</ul>
+				</div>
+				<div class="contactus fl">
+					<h4>联系我们</h4>
+					<div class="border-line-short"></div>
+					<ul>
+						<!--<li class="font-yellow-2">400-88-8888</li>-->
+                                                 <li></li>
+						<li>kegustar@163.com</li>
+						<li>湖北省武汉市汉口解放大道888号108楼1107#</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-menu">
+				<ul> 
+					<li>[@cms_channel id='96']<a href="${tag_bean.url}" target="_blank"> ${tag_bean.name}</a>[/@cms_channel]</li>
+					<li>[@cms_channel id='104']<a href="${tag_bean.url}" target="_blank"> ${tag_bean.name}</a>[/@cms_channel]</li>
+					<li>[@cms_channel id='102']<a href="${tag_bean.url}" target="_blank"> ${tag_bean.name}</a>[/@cms_channel]</li>
+					<li>[@cms_channel id='126']<a href="${tag_bean.url}" target="_blank"> ${tag_bean.name}</a>[/@cms_channel]</li>
+					<li>[@cms_channel id='127']<a href="${tag_bean.url}" target="_blank"> ${tag_bean.name}</a>[/@cms_channel]</li>
+					<li>[@cms_channel id='106']<a href="${tag_bean.url}" target="_blank"> ${tag_bean.name}</a>[/@cms_channel]</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="section-wrapper">
+			<span>版权所有：嗑股明星官方网站</span>
+			<span class="font-yellow-2">www.kegustar.com</span>
+			<span>ICP备案：京ICP备17041321号-1</span>
+		</div>
+	</footer>
+
+
+
+
+
+
+
+<script type="text/javascript" language="javascript">
+   //加入收藏
+       function AddFavorite(sURL, sTitle) {
+           sURL =encodeURI(sURL); 
+       try{   
+          window.external.addFavorite(sURL, sTitle);   
+       }catch(e) {   
+          try{   
+              window.sidebar.addPanel(sTitle, sURL, "");   
+           }catch (e){   
+              alert("您的浏览器不支持自动加入收藏功能，请使用Ctrl+D进行添加，或手动在浏览器里进行设置！");
+          }   
+       }
+   }
+   
+   //设为首页
+   function SetHome(url){
+       if (document.all) {
+          document.body.style.behavior='url(#default#homepage)';
+             document.body.setHomePage(url);
+       }else{
+           alert("您的浏览器不支持自动设置页面为首页功能，请您手动在浏览器里设置该页面为首页！");
+       }
+   }
+</script>

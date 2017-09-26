@@ -1,0 +1,51 @@
+ 
+<script>
+function qkeypress(){
+	var q=$("input[name=q]");
+	if(q.val().trim()!=""){
+		$("input[name=q]").autocomplete("enable");
+	}else{
+		$("input[name=q]").autocomplete("disable");
+	}
+}
+</script>
+
+<!-- 顶部菜单 -->
+<header>
+	<div class="topbar clearfix">
+		<div class="fl">
+			<span>欢迎您访问嗑股明星官网！</span>
+		 
+			  [#if user??]
+			  
+			      
+				<span>欢迎您：${user.username}</span>
+				<a href="${base}/logout.jspx">退出</a> 
+				<a href="${base}/member/index.jspx">个人中心</a>
+			   
+			  [#else]
+			         <a href="${base}/login.jspx">登录</a>
+			         <a href="${base}/register.jspx">注册</a>
+              [/#if] 
+		</div>
+		<!-- <div class="fl">
+			<span>欢迎您访问磕股明星官网！</span>
+			<span>欢迎您：15966669999</span>
+			<a href="#">退出</a>
+			<a href="#">消息</a>
+			<a href="#">个人中心</a>
+		</div> -->
+		<div class="fr">
+			<ul> 
+			    [@cms_channel id='106']<li><a href="${tag_bean.url}" target="_blank">${tag_bean.name}</a></li>[/@cms_channel] 
+				[@cms_channel id='96']<li><a href="${tag_bean.url}" target="_blank">${tag_bean.name}</a></li>[/@cms_channel]
+				<li><a onclick="AddFavorite(window.location,document.title)" href="javascript:void(0)">加入收藏</a></li>
+			</ul>
+		</div>
+		<div class="tel fr">
+			<span class="font-yellow"><!--欢迎致电：400-66668888--></span>
+		</div>
+	</div>
+</header>
+ [#include "../include/nav.html"]
+  

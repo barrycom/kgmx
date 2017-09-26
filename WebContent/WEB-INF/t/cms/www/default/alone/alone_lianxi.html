@@ -1,0 +1,131 @@
+
+
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="keywords" content="${channel.keywords!}" />
+<meta http-equiv="description" content="${channel.description!}" />
+<title>${channel.title!channel.name} - ${site.name} - Powered by
+	kgmx</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+<script type="text/javascript">
+	$(function() {
+		Cms.channelViewCount("${base}", "${channel.id}");
+		Cms.siteFlow("${base}", location.href, document.referrer,
+				"${site.config.flowSwitch?string}");
+	});
+</script>
+<head>
+<body>
+	[#include "../include/header.html"/]
+	<!-- banner图 -->
+ [@cms_channel id='104']<div class="nybanner"
+		style="background: url(${tag_bean.titleImg!}) no-repeat center; background-size: auto 170px;"></div>
+		[/@cms_channel]
+	 
+
+	<!-------------------------内页锚点--------------------------->
+	<div class="ny_nav bg-wgy pagewide2">
+		<div class="pagewide">
+			<div class="ny_nav_icon">
+
+				[#if  channel.id==104] <a href="${base}">首页 </a> > <a
+					href="${channel.url}">${channel.name}</a> [/#if] [#if
+				channel.parent??] <a href="http://www.kegustar.com/">首页</a> > <a
+					href="${channel.parent.url}">${channel.parent.name}</a> > <span
+					class="ny_nav_yellow yellow">${channel.name}</span> [/#if]
+
+
+
+			</div>
+		</div>
+	</div>
+	<!-------------------------内页锚点--------------------------->
+
+
+	<!-------------------------内页主体内容------------------------>
+	<div class="pagewide pad-top pad-bottom">
+		<div class="fl person_left">
+
+			[#if channel.id==104]
+			<div class="help_left_title white text-center">${channel.name}</div>
+			<ul class="person_left_list">
+				[@cms_channel_list parentId='104' orderBy='4'] [#list tag_list as c]
+				[#if c_index==0]
+				<a href="${c.url}">
+					<li class="active">${c.name}</li>
+				</a> [#else]
+				<a href="${c.url}"><li>${c.name}</li></a> [/#if] [/#list]
+				[/@cms_channel_list]
+			</ul>
+			[#elseif channel.parent?? && channel.parent.id==104]
+			<div class="help_left_title white text-center">${channel.parent.name}</div>
+			<ul class="person_left_list">
+				[@cms_channel_list parentId='104' orderBy='4'] [#list tag_list as c]
+				<a href="${c.url}"><li [#if channel??&&channel.id==c.id]class="active"[/#if]>${c.name}</a>
+				[/#list] [/@cms_channel_list]
+			</ul>
+			[#else]
+			<div class="help_left_title white text-center">[@cms_channel
+				id='104'] ${tag_bean.name}[/@cms_channel]</div>
+			<ul class="person_left_list">
+				[@cms_channel_list parentId='104' orderBy='4'] [#list tag_list as c]
+				<a href="${c.url}"><li>${c.name}</a> [/#list]
+				[/@cms_channel_list]
+			</ul>
+			[/#if]  
+		</div>
+		<div class="fr person_right3">
+			<div class="person_right_title">
+				[#if channel.parent??]${channel.name}</div>
+				       <div class="person_right2_txt">${channel.txt!}</div>
+				[#else] 
+				  [@cms_channel_list parentId='${channel.id}' orderBy='4']
+						[#list tag_list as c] [#if c_index==0] 
+						     ${c.name}</div> <div class="person_right2_txt">${c.txt!}</div>
+						[/#if] [/#list] 
+				  [/@cms_channel_list] [/#if]
+
+			</div>
+			<div class="both"></div>
+
+
+
+		</div> 
+		<!-------------------------内页主体内容------------------------>
+
+
+
+		[#include "../include/footer.html"/]
+		<script type="text/javascript" language="javascript">
+			//加入收藏
+			function AddFavorite(sURL, sTitle) {
+				sURL = encodeURI(sURL);
+				try {
+					window.external.addFavorite(sURL, sTitle);
+				} catch (e) {
+					try {
+						window.sidebar.addPanel(sTitle, sURL, "");
+					} catch (e) {
+						alert("您的浏览器不支持自动加入收藏功能，请使用Ctrl+D进行添加，或手动在浏览器里进行设置！");
+					}
+				}
+			}
+
+			//设为首页
+			function SetHome(url) {
+				if (document.all) {
+					document.body.style.behavior = 'url(#default#homepage)';
+					document.body.setHomePage(url);
+				} else {
+					alert("您的浏览器不支持自动设置页面为首页功能，请您手动在浏览器里设置该页面为首页！");
+				}
+			}
+		</script>
+</body>
+</html>

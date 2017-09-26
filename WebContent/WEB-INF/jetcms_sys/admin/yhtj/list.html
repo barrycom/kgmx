@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jetcms_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		$.alert("<@s.m 'global.prompt'/>","<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	$.confirm(doDelete,"<@s.m 'global.confirm'/>","<@s.m 'global.confirm.delete'/>");
+}
+function doDelete(){
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+
+function queryhy(obj){
+	var select=document.getElementById('queryhyId'); 
+	 
+	select.innerHTML = "";
+
+	for(var i=0;i<select.childNodes.length;i++){
+		select.removeChild(select.options[0]);
+		select.remove(0);
+		select.options[0] = null;
+	}
+	select.add(new Option("---会员---","")); 
+	
+	
+	var select1=document.getElementById('querydlId'); 
+	 
+	select1.innerHTML = "";
+
+	for(var i=0;i<select1.childNodes.length;i++){
+		select1.removeChild(select1.options[0]);
+		select1.remove(0);
+		select1.options[0] = null;
+	}
+	select1.add(new Option("---代理---","")); 
+	
+	
+	if(obj!=""){ 
+		$.ajax({
+			type : 'POST',
+			url : 'queryhy.do',
+			data : {
+				querysyId : obj
+			},
+			success : function(data) {
+				 
+				if (data.success) { 
+					for(var k in data.map){  //通过定义一个局部变量k遍历获取到了map中所有的key值  
+						  
+						  var value=data.map[k]; //获取到了key所对应的value的值！    
+						  select.add(new Option(value, k+""));
+					 }  
+	
+				}else{
+					alert(data.msg);
+				}
+			},
+			dataType : "json"
+		});
+	}
+}
+
+
+function queryhyIdChange(obj){
+	var select=document.getElementById('querydlId'); 
+	 
+	select.innerHTML = "";
+
+	for(var i=0;i<select.childNodes.length;i++){
+		select.removeChild(select.options[0]);
+		select.remove(0);
+		select.options[0] = null;
+	}
+	select.add(new Option("---代理---","")); 
+	if(obj!=""){ 
+		$.ajax({
+			type : 'POST',
+			url : 'querydl.do',
+			data : {
+				querysyId : obj
+			},
+			success : function(data) {
+				 
+				if (data.success) {
+					 
+					for(var k in data.map){  //通过定义一个局部变量k遍历获取到了map中所有的key值  
+						  
+						  var value=data.map[k]; //获取到了key所对应的value的值！    
+						  select.add(new Option(value, k+""));
+					 }  
+	
+				}else{
+					alert(data.msg);
+				}
+			},
+			dataType : "json"
+		});
+	}
+}
+</script>
+</head>
+<body>
+<div class="page-positon ove">
+  <div class="position-div"><@s.m "global.position"/>: <@s.m "cmsMember.yhtj"/> > <@s.m "global.list"/></div>
+</div>
+<!-- <div class="box-positon">
+	<form class="ropt">
+		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='v_add.do';"/>
+	</form>
+	<div class="clear"></div>
+</div> -->
+<div class="body-box">
+<form action="v_list.do" method="post">
+<div style="padding-bottom:10px; text-indent:6px;">
+<@s.m "cmsUser.username"/>: <input type="text" name="queryUsername" value="${queryUsername!}" style="width:100px; margin-right:10px;"/>
+<@s.m "cmsUser.realname"/>: <input type="text" name="queryRealName" value="${queryRealName!}" style="width:100px; margin-right:10px;"/>
+<select id="querysyId" name="querysyId" onchange="queryhy(this.value)" > 
+	<option value=""  >---省运---</option> 
+<#if syry?size gt 0> 
+<#list syry as c> 
+	<option value="${c.id}" <#if querysyId??> <#if querysyId==(c.id?string)> selected="selected"</#if></#if>>${c.username}<#if c.realname??> (${c.realname})</#if></option> 
+</#list>
+</#if>
+</select> 
+
+
+<select id="queryhyId" name="queryhyId" onchange="queryhyIdChange(this.value)" > 
+	<option value=""  >---会员---</option>  
+	<#if hyry?size gt 0> 
+	<#list hyry as c> 
+		<option value="${c.id}" <#if queryhyId??> <#if queryhyId==(c.id?string)> selected="selected"</#if></#if>>${c.username}<#if c.realname??> (${c.realname})</#if></option> 
+	</#list>
+	</#if>
+</select> 
+
+<select id="querydlId" name="querydlId" onchange="" > 
+	<option value=""  >---代理---</option>  
+	<#if dlry?size gt 0> 
+	<#list dlry as c> 
+		<option value="${c.id}" <#if querydlId??> <#if querydlId==(c.id?string)> selected="selected"</#if></#if>>${c.username}<#if c.realname??> (${c.realname})</#if></option> 
+	</#list>
+	</#if>
+</select> 
+
+
+<label style="display:inline-block; margin-right:6px;">
+<input type="checkbox" class="m-checkbox" name="queryIsPay" value="true"<#if queryIsPay?? && queryIsPay> checked="checked"</#if>/>
+有消费
+</label>
+<label style="display:inline-block; margin-right:6px;">
+<input type="checkbox" class="m-checkbox" name="issubordinate" value="true"<#if issubordinate?? && issubordinate> checked="checked"</#if>/>
+有上级
+</label>
+
+<!-- <@p.select name="queryGroupId" value=queryGroupId list=groupList listKey="id" listValue="name" headerKey="" headerValue="cmsUser.group.all" style="margin-right:10px;"/>
+ --><!-- <@p.select name="queryDepartId" value=queryDepartId list=departList listKey="id" listValue="name" headerKey="" headerValue="cmsDepartment.all" style="margin-right:10px;"/> -->
+<!-- <@p.select name="queryRoleId" value=queryRoleId list=roleList listKey="id" listValue="name" headerKey="" headerValue="cmsRole.all" />
+ --><input class="query" type="submit" value="<@s.m "global.query"/>"/>
+</div>
+</form>
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+<@p.table value=pagination;cmsUser,i,has_next><#rt/>
+	<@p.column title="<input type='checkbox' onclick='Pn.checkbox(\"ids\",this.checked)'/>" width="25" align="center">
+		<input type='checkbox' name='ids' value='${cmsUser.id}'  onclick="Pn.selectCheckBox('${cmsUser.id}',this.checked)"/><#t/>
+	</@p.column><#t/>
+	<@p.column title="ID" align="center">${cmsUser.id}</@p.column><#t/>
+	<@p.column code="cmsUser.username" align="center">
+		<div title="<#list cmsUser.roles as r>${r.name}<#if r_has_next>\n</#if></#list>">${cmsUser.username}<#if cmsUser.realname??> (${cmsUser.realname})</#if></div>
+	</@p.column><#t/>
+	<@p.column code="cmsUser.subordinate" align="center">
+		 <div><#if cmsUser.createby??>${cmsUser.createby.username!}<#if cmsUser.createby.realname??> (${cmsUser.createby.realname})</#if><#else><span style="color:red">无</span></#if></div>
+	</@p.column><#t/>
+    <@p.column code="cmsUser.chargeAmount" align="center">
+		 <div> ${cmsUser.chargeAmount!}元</div>
+	</@p.column><#t/>
+	 <@p.column code="cmsUser.pay" align="center">
+		 <div><#if cmsUser.pay>是<#else><font color="red">否</font></#if></div>
+	</@p.column><#t/>
+	<@p.column code="cmsUser.issubordinate" align="center"><#if cmsUser.createby??><@s.m "global.true"/><#else><span style="color:red"><@s.m "global.false"/></span></#if></@p.column><#t/>
+	<@p.column code="global.operate" align="center">
+		<#assign params>&pageNo=${pageNo!}&queryUsername=${queryUsername!}&queryEmail=${queryEmail!}&queryGroupId=${queryGroupId!}&queryDisabled=${(queryDisabled!false)?string}&queryRealName=${queryRealName!}&queryDepartId=${queryDepartId!}&queryRoleId=${queryRoleId!}</#assign>
+		<#if cmsUser.disabled>
+			等待管理员审核
+		<#else>
+			<!-- <a href="v_edit.do?id=${cmsUser.id}${params}" class="pn-opt">
+			<@s.m "global.edit"/></a> | <#rt/> -->
+			<#if cmsUser.pay><a href="order_list.do?userId=${cmsUser.id}">消费明细</a><#else><font color="red">暂无消费</font></#if>
+	 	</#if>
+		
+	</@p.column><#t/>
+	 
+	
+</@p.table>
+<div>
+<!-- <input class="del-button" type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/ style="float:left;"></div> -->
+</form>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>个人中心 - ${site.name} - Powered by kgmx</title> <script
+		src="${resSys}/jquery.js" type="text/javascript"></script>
+	<script src="${resSys}/front.js" type="text/javascript"></script>
+	<script src="${resSys}/geo.js" type="text/javascript"></script>
+	<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+	<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js"
+		type="text/javascript"></script>
+	<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+	<!---------------------------------------下拉框------------------------------------------->
+<script type="text/javascript" src="/${res}/js/jquery.min.js"></script>
+<script type="text/javascript">
+	/*下拉框*/
+	$(document).ready(function() {
+		$(".select6_box input,").click(function() {
+			var thisinput = $(this);
+			var thisul = $(this).parent().find("ul");
+			if (thisul.css("display") == "none") {
+				if (thisul.height() > 500) {
+					thisul.css({
+						height : "200" + "px",
+						"overflow-y" : "scroll"
+					})
+				}
+				;
+				thisul.fadeIn("100");
+				thisul.hover(function() {
+				}, function() {
+					thisul.fadeOut("100");
+				})
+				thisul.find("li").click(function() {
+					thisinput.val($(this).text());
+					thisul.fadeOut("100");
+				}).hover(function() {
+					$(this).addClass("hover");
+				}, function() {
+					$(this).removeClass("hover");
+				});
+			} else {
+				thisul.fadeOut("fast");
+			}
+		})
+		$("#submit").click(function() {
+			var endinfo = "";
+			$(".select6_box input:text,").each(function(i) {
+				endinfo = endinfo + (i + 1) + ":" + $(this).val() + ";\n";
+			})
+
+		})
+	});
+</script>
+<!---------------------------------------下拉框------------------------------------------->
+</head>
+
+<body>
+	[#include "../include/header.html"/]
+
+	<!-------------------------内页锚点--------------------------->
+	<div class="ny_nav bg-wgy pagewide2">
+		<div class="pagewide">
+			<div class="ny_nav_icon">
+				<a href="http://www.kegustar.com/">首页</a> > <a href="${base}/member/index.jspx">个人中心</a>
+				> <a href="${base}/member/my_order_list.jspx">学习记录</a> > <a href="${base}/member/my_order_kj_list.jspx"><span
+					class="ny_nav_yellow yellow">我的课件</span></a>
+			</div>
+		</div>
+	</div>
+	<!-------------------------内页锚点--------------------------->
+	<!-------------------------内页主体内容------------------------>
+	<div class="pagewide pad-top pad-bottom">
+
+
+		<div class="fl person_left">
+			<!--------学习记录------->
+			<div class="person_left_title white">学习记录</div>
+			<ul class="person_left_list">
+				<a href="${base}/member/my_order_list.jspx"><li >我的高级课</li></a>
+				<a href="${base}/member/my_order_kj_list.jspx"><li  class="active">我的课件</li></a>
+				<a href="${base}/member/collection_list.jspx"><li>我的收藏</li></a>
+				<a href="${base}/member/myguestbook.jspx"><li>我的提问</li></a>
+			</ul>
+			<!--------学习记录------->
+			<!--------消费记录------->
+			<div class="person_left_title2 white">消费记录</div>
+			<ul class="person_left_list">
+				<a href="${base}/member/order_list.jspx"><li>我的订单</li></a>
+			</ul>
+			<!--------消费记录------->
+			<!--------账号管理------->
+			<div class="person_left_title3 white">账号管理</div>
+			<ul class="person_left_list">
+				<a href="${base}/member/index.jspx"><li>基本信息</li></a>
+				<a href="${base}/member/portrait.jspx"><li>个人头像</li></a>
+				<a href="${base}/member/pwd.jspx"><li>安全信息</li></a>
+			</ul>
+			<!--------账号管理------->
+			<!--------消息中心--- 
+			<div class="person_left_title4 white">消息中心</div>
+			<ul class="person_left_list">
+				<a href="#"><li>我的信息</li></a>
+				<a href="#"><li>意见反馈</li></a>
+			</ul>---->
+			<!--------消息中心------->
+		</div>
+
+         
+        <div class="fr person_right">
+                 <div class="person_right_title">我的课件</div>
+                 <table class="person_table text-center">
+                  <tr class="bg-y person_table_title">
+                       <td  colspan="${channels?size}" class="person_table_txt">导师</td>
+                     
+                    </tr>
+                 
+                      <tr class="person_table_hui">
+                       [#if channels?size gt 0] 
+                     [#list channels as c]
+		                       <td class="person_table_txt2">[#if c.id!=163] <a href="${base}/member/my_order_kj_list.jspx?schannelId=${c.id!}"> ${c.title}</a>[/#if]</td>
+                       [/#list] 
+				 [/#if]
+                    </tr>
+                 </table>
+                
+                       <div class="both"></div>
+                  
+       </div>
+            <div class="both"></div>
+         
+
+         
+</div>
+<!-------------------------内页主体内容------------------------>
+ 
+ 
+	[#include "../include/footer.html"/]
+</body>
+</html>

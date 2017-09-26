@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-lazy-init="true">
+	
+	<bean id="dynamicAct" class="com.jetcms.cms.action.front.DynamicPageAct"/>
+	<bean id="tagAct" class="com.jetcms.cms.action.front.TagAct"/>
+	<bean id="topicAct" class="com.jetcms.cms.action.front.TopicAct"/>
+	<bean id="searchAct" class="com.jetcms.cms.action.front.SearchAct"/>
+	<bean id="voteAct" class="com.jetcms.cms.action.front.VoteAct"/>
+	<bean id="webAct" class="com.jetcms.cms.action.front.WebAct"/>
+	<bean id="friendlinkAct" class="com.jetcms.cms.action.front.FriendlinkAct"/>
+	
+	<bean id="contentCountAct" class="com.jetcms.cms.action.front.ContentCountAct"/>
+	<bean id="attachmentAct" class="com.jetcms.cms.action.front.AttachmentAct"/>
+	<bean id="commentAct" class="com.jetcms.cms.action.front.CommentAct"/>
+	<bean id="guestbookAct" class="com.jetcms.cms.action.front.GuestbookAct"/>
+	<bean id="rssAct" class="com.jetcms.cms.action.front.RssAct"/>
+	<bean id="csiCustomAct" class="com.jetcms.cms.action.front.CsiCustomAct"/>
+	<bean id="advertisingAct" class="com.jetcms.cms.action.front.AdvertisingAct"/>
+	
+	<bean id="casLoginAct" class="com.jetcms.cms.action.member.CasLoginAct"/>
+	<bean id="casForgotLoginAct" class="com.jetcms.cms.action.front.CasForgotLoginAct"/>
+	<bean id="loginAct" class="com.jetcms.cms.action.member.LoginAct"/>
+	<bean id="memberAct" class="com.jetcms.cms.action.member.MemberAct"/>
+	<bean id="contributeAct" class="com.jetcms.cms.action.member.ContributeAct"/>
+	<bean id="fckAct" class="com.jetcms.cms.action.member.FckAct"/>
+	<bean id="ueditorAct" class="com.jetcms.cms.action.member.UeditorAct"/>
+	<bean id="registerAct" class="com.jetcms.cms.action.member.RegisterAct"/>
+	<bean id="forgotPasswordAct" class="com.jetcms.cms.action.member.ForgotPasswordAct"/>
+	<bean id="imageCutAct" class="com.jetcms.cms.action.member.ImageCutAct"/>
+	<bean id="imageUploadAct" class="com.jetcms.cms.action.member.ImageUploadAct"/>
+	<bean id="commentMemberAct" class="com.jetcms.cms.action.member.CommentMemberAct"/>
+	<bean id="guestbookMemberAct" class="com.jetcms.cms.action.member.GuestbookMemberAct"/>
+	<bean id="collectionMemberAct" class="com.jetcms.cms.action.member.CollectionMemberAct"/>
+	<bean id="messageAct" class="com.jetcms.cms.action.member.MessageAct"/>
+
+	<bean id="siteFlowAct" class="com.jetcms.cms.action.front.CmsSiteFlowAct"/>
+	<bean id="resumeAct" class="com.jetcms.cms.action.member.ResumeAct"/>
+	<bean id="docAct" class="com.jetcms.cms.action.member.DocAct"/>
+	<bean id="visualAct" class="com.jetcms.cms.action.front.VisualAct"/>
+	<bean id="swfUploadAct" class="com.jetcms.cms.action.member.SwfUploadAct"/>
+	<bean id="contentScoreAct" class="com.jetcms.cms.action.front.ContentScoreAct"/>
+	<bean id="thirdLoginAct" class="com.jetcms.cms.action.front.ThirdLoginAct"/>
+	<bean id="staticPageCheckPermAct" class="com.jetcms.cms.action.front.StaticPageCheckPermAct"/>
+	<bean id="channelCountAct" class="com.jetcms.cms.action.front.ChannelCountAct"/>
+	<bean id="contentJsonAct" class="com.jetcms.cms.action.front.ContentJsonAct"/>
+	<bean id="channelJsonAct" class="com.jetcms.cms.action.front.ChannelJsonAct"/>
+	<bean id="dimensionCodeAct" class="com.jetcms.cms.action.front.DimensionCodeAct"/>
+	<bean id="contentOrderAct" class="com.jetcms.cms.action.front.ContentOrderAct"/>
+	<bean id="accountDrawAct" class="com.jetcms.cms.action.member.AccountDrawAct"/>
+	<bean id="weiXinAuthAct" class="com.jetcms.cms.action.member.WeiXinAuthAct"/>
+	<bean id="userContentBuyAct" class="com.jetcms.cms.action.member.UserContentBuyAct"/>
+</beans>

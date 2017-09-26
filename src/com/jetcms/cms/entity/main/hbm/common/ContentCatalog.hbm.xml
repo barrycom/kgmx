@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jetcms.cms.entity.main">
+	<class  name="ContentCatalog" table="jc_content_catalog">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/> 
+		<id name="id" type="java.lang.Integer" column="catalog_id"><generator class="identity"/></id>
+		<property name="path" column="path" type="string" length="255" not-null="true"/>
+		 <property name="pathpass" column="path_pass" type="string" length="255" not-null="false"/>
+	    <property name="livepath" column="live_path" type="string" length="255" not-null="false"/>
+	    <property name="livepass" column="live_pass" type="string" length="255" not-null="false"/>
+		<property name="name" column="catalog_name" type="string" length="100" not-null="true"/>
+		<property name="lectureDate" column="lecture_date" type="string" length="100" not-null="false"/>
+		<property name="viewCount" column="view_count" type="java.lang.Integer" length="10" not-null="true"/>
+	    <property name="courseCategory" column="course_category" type="string" length="100" not-null="false"/>
+	    <property name="startTime" column="start_time" type="string" length="100" not-null="false"/>
+	    <property name="endTime" column="end_time" type="string" length="100" not-null="false"/>
+	    <property name="shownum" column="show_num" type="java.lang.Integer" length="11" not-null="false"/>
+	     <property name="contentId" column="content_id" type="java.lang.Integer" length="11" not-null="false"/>
+		<one-to-one name="content" class="Content" constrained="true"/>
+	</class>
+</hibernate-mapping>

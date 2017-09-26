@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jetcms_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+</script>
+<style type="text/css">
+.fontA{
+	color: #499dd7;
+	font-size: 18px;
+}
+.fontB{
+	color: #499dd7;
+	font-size: 22px;
+}
+.fontC{
+	color: #499dd7;
+	font-size: 22px;
+}
+.fontD{
+	font-size: 13px;
+	margin-top: 10px;
+}
+.table{
+    border-top: 1px dotted #cfcfcf;
+    border-left: 1px dotted #cfcfcf;
+    border-right: 1px dotted #cfcfcf;
+    border-bottom: 1px dotted #cfcfcf;
+    }
+</style>
+</head>
+<body>
+<div class="body-box">
+<form action="v_list.do" method="post">
+<div style="padding-bottom:10px; text-indent:6px;">
+<label style="display:inline-block; margin-right:6px;"> </label>
+</div>
+</form>
+<div class="box-positon">
+	 
+	<table width="50%">
+		<tr>
+			<td><span class="fontA">姓名:</span></td>
+			<td><span class="fontA">${userName!}</span></td>
+			<td><span class="fontA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售总单:</span></td>
+			<td><span class="fontA">&nbsp;&nbsp;${mycountzd}</span></td>
+		</tr>
+		<tr>
+			<td><span class="fontA"></span></td>
+			<td><span class="fontA"></span></td>
+			<td><span class="fontA">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销售总额:</span></td>
+			<td><span class="fontA">&nbsp;&nbsp;${mycountze}</span></td>
+		</tr>
+	</table>
+	<!-- <div class="clear"></div> -->
+<form action="../member/order_list4.do" method="post">
+	<div style="padding-bottom:10px; text-indent:6px;">
+	<@s.m "content.buy.orderStartTime"/>: <input name="startTime" value="${startTime!}" style="width:140px"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" />
+	<@s.m "content.buy.orderEndTime"/>:<input name="endTime" value="${startTime!}" style="width:140px"  type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="Wdate" /> 
+	<label style="display:inline-block; margin-right:6px;"> </label>
+	<input class="query" type="submit" value="<@s.m "global.query"/>"/>
+</div>
+</form>
+</div>
+<@p.table value=pagination;cmsUser,i,has_next><#rt/>
+	<@p.column title="姓名" align="center">${cmsUser.realname!}</@p.column><#t/>
+	<@p.column title="销售总单" align="center">${cmsUser.countzd!}</@p.column><#t/>
+	<@p.column title="销售总额" align="center">${cmsUser.countze!}</@p.column><#t/>
+	<@p.column title="个人销单" align="center"><a href="../member/order_list5.do?userId=${cmsUser.id}&startTime=${startTime!}&endTime=${endTime!}">${cmsUser.grzd}</a></@p.column><#t/>
+	<@p.column title="个人销额" align="center"><a href="../member/order_list5.do?userId=${cmsUser.id}&startTime=${startTime!}&endTime=${endTime!}">${cmsUser.grze}</a></@p.column><#t/>
+	<@p.column title="员工销单" align="center"><a href="../member/order_list6.do?userId=${cmsUser.id}&startTime=${startTime!}&endTime=${endTime!}">${cmsUser.ygzd}</a></@p.column><#t/>
+	<@p.column title="员工销额" align="center"><a href="../member/order_list6.do?userId=${cmsUser.id}&startTime=${startTime!}&endTime=${endTime!}">${cmsUser.ygze}</a></@p.column><#t/>
+	<@p.column title="代理销单" align="center"><a href="../member/order_list8.do?userId=${cmsUser.id}&startTime=${startTime!}&endTime=${endTime!}">${cmsUser.dlzd}</a></@p.column><#t/>
+	<@p.column title="代理销额" align="center"><a href="../member/order_list8.do?userId=${cmsUser.id}&startTime=${startTime!}&endTime=${endTime!}">${cmsUser.dlze}</a></@p.column><#t/>
+</@p.table>
+</div>
+<input type="button" value="返回" onclick="history.back();" class="cancel"/>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

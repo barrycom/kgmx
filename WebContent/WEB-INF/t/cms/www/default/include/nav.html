@@ -1,0 +1,41 @@
+<!-- 顶部导航 -->
+<div class="top-menu">
+	<div class="section-wrapper clearfix">
+		<div class="logo fl">
+			<img src="/${res}/images/sicon_02.png">
+		</div>
+		 
+  [@cms_channel_list]
+      <ul class="fr row-list">
+      	<li><a href="http://www.kegustar.com">首页</a></li>
+      	<li><a href="${base}/web/live_online.jspx">实况在线</a></li>
+      	<li><a href="${base}/kcdh/index.jhtml?charge=0">课程导览</a></li>
+      	<li><a href="${base}/zjhg/index.jhtml">战绩回顾</a></li>
+      	<li><a href="${base}/web/hdwd.jspx">互动问答</a></li>
+        <li><a href="${base}/zxtt/index.jhtml">资讯头条</a></li>
+         <li><a href="${base}/member/index.jspx">个人中心</a></li>
+        
+           </ul>
+  [/@cms_channel_list] 
+  <div class="fr all-classes font-yellow">
+			<a href="${base}/kcdh/index.jhtml?charge=1" style="color:#edd00a;"><h4>全部课程</h4></a>
+			<div class="classes-list">
+				<h5>按导师</h5>
+				<ul class="row-list">
+				    [@cms_channel_list parentId='75' orderBy='4']
+				        [#list tag_list as c]
+				           [#if c.id!=163]
+				           <li><a href="${c.url}?charge=1">${c.name}</a></li>
+				           [/#if]
+				         [/#list]
+			        [/@cms_channel_list]
+					 
+				</ul>
+			</div>
+		</div> 
+	</div>
+</div>
+
+
+
+ 

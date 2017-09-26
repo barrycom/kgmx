@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jetcms_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+</script>
+<style type="text/css">
+.fontA{
+	color: #499dd7;
+	font-size: 22px;
+}
+.fontB{
+	color: #499dd7;
+	font-size: 22px;
+}
+.fontC{
+	color: #499dd7;
+	font-size: 22px;
+}
+.fontD{
+	font-size: 13px;
+	margin-top: 10px;
+}
+.table{
+    border-top: 1px dotted #cfcfcf;
+    border-left: 1px dotted #cfcfcf;
+    border-right: 1px dotted #cfcfcf;
+    border-bottom: 1px dotted #cfcfcf;
+    }
+</style>
+</head>
+<body>
+<div class="page-positon ove">
+  <div class="position-div"><@s.m "global.position"/>: <@s.m "cmsMember.hy"/> > <@s.m "global.list"/></div>
+</div>
+<div class="body-box">
+<table cellpadding="0" cellspacing="0"  width="100%" align="center">
+               <tbody>
+                 <tr>
+                   <td class="table">
+                     <div class="home-view">
+                       <div class="home-view-img"> <img src="/res/jetcms/images/view-icon.png"/></div>
+                       <div class="home-view-txt"><span class="fontA">${countDL}</span><p class="fontD"><a href="${url}">${roleName}</a></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class="fontD"><a href="${urlTj}">查看总业绩</a></p></div>
+                     </div> 
+                   </td>
+                   <td class="table">
+                     <div class="home-publish">
+                       <div class="home-view-img"><img src="/res/jetcms/images/publish-icon.png"/></div>
+                       <div class="home-view-txt"><span class="fontA">${countYG}</span><p class="fontD"><a href="../global_xxyg/v_list.do?userId=${userId}">员工数量</a></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class="fontD"><a href="../member/order_list6.do">查看员工业绩</a></p></div>
+                     </div>
+                   </td>
+                   <td class="table">
+                     <div class="home-examine">
+                       <div class="home-view-img"><img src="/res/jetcms/images/examine-icon.png"/></div>
+                       <div class="home-view-txt"><span class="fontA">${countXX}</span><p class="fontD"><a href="../member/v_listyj.do?userId=${userId}">本人线下用户</a></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class="fontD"><a href="../member/order_list1.do">查看个人业绩</a></p></div>
+                     </div>
+                   </td>
+                 </tr>
+              </tbody>
+             </table>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

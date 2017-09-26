@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.jetcms.core.entity">
+	<class name="CmsCatalog" table="jc_catalog">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		<property name="catalogId" column="catalog_id" type="integer" not-null="true" length="11"/>
+		<property name="viewnum" column="view_num" type="integer" not-null="true" length="11"/>
+		<property name="priority" column="priority" type="integer" not-null="true" length="11"/> 
+		<many-to-one name="user" column="user_id" class="com.jetcms.core.entity.CmsUser" not-null="true"></many-to-one>
+		 
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jetcms_sys/head.html"/>
+<script type="text/javascript">
+$(function() {
+	$("#jvForm").validate();
+	//获取站点数据
+	$.get("v_site_list.do",function(s) {
+		$(s).appendTo("#siteTree");
+		$("#siteTree").treeview({collapsed:true});
+	},"html");
+	$.get("v_control_site_list.do",function(s) {
+		$(s).appendTo("#controlSiteTree");
+		$("#controlSiteTree").treeview({collapsed:true});
+	},"html");
+	//栏目对话框
+	$("#channelDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 280,
+		height: 420,
+		position: ["center",20],
+		buttons: {
+			"OK": function() {
+				$(this).dialog("close");
+			}
+		},
+		close: function(event, ui) {
+			//将列表框中已选中的项复制到隐藏表单中
+			var s="";
+			$("#channels").children().each(function(){
+				if($(this).prop("selected")) {
+					s += "<input type='hidden' name='channelIds' value='" +$(this).val()+ "'/>";
+				}
+			});
+			$("#channelIdsContainer"+selectSiteId).empty().append(s);
+		}
+	});
+	$("#controlChannelDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 280,
+		height: 420,
+		position: ["center",20],
+		buttons: {
+			"OK": function() {
+				$(this).dialog("close");
+			}
+		},
+		close: function(event, ui) {
+			//将列表框中已选中的项复制到隐藏表单中
+			var s="";
+			$("#controlChannels").children().each(function(){
+				if($(this).prop("selected")) {
+					s += "<input type='hidden' name='controlChannelIds' value='" +$(this).val()+ "'/>";
+				}
+			});
+			$("#controlChannelIdsContainer"+selectSiteId).empty().append(s);
+		}
+	});
+	
+	//部门对话框
+	$("#departDialog").dialog({
+		autoOpen: false,
+		modal: true,
+		width: 280,
+		height: 420,
+		position: ["center",20],
+		buttons: {
+			"OK": function() {
+				$("#departId").val($("input[name='departId']:checked").val());
+				$("#departName").val($("input[name='departId']:checked+span").html());
+				$(this).dialog("close");
+			}
+		}
+	});
+	var parent_opened = false;
+	$('#depart').click(function(){
+		//第一次打开，需要获取数据。
+		if(!parent_opened) {
+			$("#departTree").treeview({
+				url: "v_depart_add.do"
+			});
+			parent_opened = true;
+			$("#departDialog").show();
+		}
+		$('#departDialog').dialog('open');
+		return false;
+	});	
+});
+ 
+
+function channelOpen(siteId){
+	selectSiteId=siteId;
+	//清空
+	$("#channels").html("");
+	var selectChannelIdArray= new Array();
+	$("#channelIdsContainer"+siteId).children().each(function(){
+		selectChannelIdArray.push($(this).val());
+	});
+	//获取数据
+	$.get("v_channels_list.do",{"siteId":siteId},function(s) {
+		$(s).appendTo("#channels");
+		processChannelSelected(selectChannelIdArray);
+	},"html");
+	$('#channelDialog').dialog('open');
+}
+
+function controlChannelOpen(siteId){
+	selectSiteId=siteId;
+	//清空
+	$("#controlChannels").html("");
+	var selectChannelIdArray= new Array();
+	$("#controlChannelIdsContainer"+siteId).children().each(function(){
+		selectChannelIdArray.push($(this).val());
+	});
+	//获取数据
+	$.get("v_channels_list.do",{"siteId":siteId},function(s) {
+		$(s).appendTo("#controlChannels");
+		processControlChannelSelected(selectChannelIdArray);
+	},"html");
+	$('#controlChannelDialog').dialog('open');
+}
+
+function processChannelSelected(selectArray){
+	$("#channels option").each(function(i){
+		if($.inArray($(this).val(), selectArray)!=-1)
+		{
+			$(this).prop("selected","selected");
+		}
+	});
+}
+function processControlChannelSelected(selectArray){
+	$("#controlChannels option").each(function(i){
+		if($.inArray($(this).val(), selectArray)!=-1)
+		{
+			$(this).prop("selected","selected");
+		}
+	});
+}
+function allChannels(chk) {
+	if(chk) {
+		$("#channels").children().each(function(){$(this).prop("selected","selected")});
+	}else{
+		$("#channels").children().each(function(){$(this).prop("selected","")});
+	} 
+}
+function allControlChannels(chk) {
+	if(chk) {
+		$("#controlChannels").children().each(function(){$(this).prop("selected","selected")});
+	}else{
+		$("#controlChannels").children().each(function(){$(this).prop("selected","")});
+	} 
+}
+ 
+</script>
+<style>
+.pn-fcontent label{display:inline-block; margin-right:6px;}
+</style>
+</head>
+<body>
+<div class="page-positon ove">
+  <div class="position-div"><@s.m "global.position"/>: <@s.m "cmsAdminLocal.function"/> > <@s.m "global.add"/></div>
+</div>
+<div class="box-positon ck">
+	<form class="ropt">
+		<input type="submit" value="<@s.m "global.backToList"/>" onclick="this.form.action='v_list.do';" class="return-button"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="body-box">
+<#assign usernameExist><@s.m "error.usernameExist"/></#assign>
+<@p.form id="jvForm" action="o_save.do" labelWidth="12" class="formDefStyle">
+<@p.text width="50" colspan="1" label="cmsUser.username" name="username" required="true" maxlength="100" vld="{required:true,username:true,remote:'v_check_username.do',messages:{remote:'${usernameExist}'}}"/>
+<@p.text width="50" colspan="1" label="cmsUser.email" name="email" size="30" maxlength="100" class="email"/><@p.tr/>
+<@p.password width="50" colspan="1" label="cmsUser.password" id="password" name="password" maxlength="100" class="required" required="true"/>
+<@p.password width="50" colspan="1" label="cmsUser.pwdAgain" equalTo="#password" required="true"/><@p.tr/>
+<@p.select width="50" colspan="1" label="cmsUser.group" name="groupId" list=groupList listKey="id" listValue="name" required="true"/>
+<@p.text width="50" colspan="1" label="cmsUser.rank" name="rank" value=currRank-1 style="width:70px" required="true" class="required digits" maxlength="5" max=currRank help="cmsUser.rank.help"/><@p.tr/>
+<@p.text width="50" colspan="1" label="cmsUser.realname" name="realname" maxlength="100"/>
+<@p.radio width="50" colspan="1" label="cmsUser.gender" name="gender" list={"true":"cmsUser.male","false":"cmsUser.female","":"cmsUser.secrecy"}/><@p.tr/>
+<@p.radio width="50" colspan="2" label="cmsUser.selfAdmin" name="selfAdmin" value="false" list={"true":"global.true","false":"global.false"} required="true" help="cmsUser.selfAdmin.help"/>
+<@p.tr/>
+<@p.checkboxlist colspan="2" label="cmsUser.role" name="roleIds" list=roleList listKey="id" listValue="name" help="cms.admin.role.help" class="m-checkbox"/><@p.tr/>
+
+<@p.td colspan="2" width="50" label="cms.department" >
+<@p.text  id="departName" name="departName" readonly="true" maxlength="25" help="cms.admin.department.help" helpPosition="3"/><input class="del-button" type="button" id="depart" value="<@s.m "cms.department"/>"/>
+<input type="hidden" name="departmentId" id="departId" />
+</@p.td>
+<@p.tr/>
+<@p.td colspan="2" label="cmsUser.allDataControl" required="true">
+<div style="clear:both"></div>
+</@p.td><@p.tr/>  
+
+<@p.td colspan="2" label="department.channels" required="true">
+    <ul id="siteTree" class="filetree">
+    	<li><@s.m "cmsUser.site"/>&nbsp;&nbsp;<@s.m "cmsUser.channels"/></li>
+    </ul>
+    <#list siteList as site>
+    <span id="channelIdsContainer${site.id}"></span>
+	</#list>
+	<span id="channelIdsContainer"></span>
+	<div id="channelDialog" title="<@s.m "department.channels"/>" style="display:none;">
+		<label><input type="checkbox" onclick="allChannels(this.checked)"/><@s.m "cmsUser.allChannel"/></label>
+		<select id="channels"  multiple="multiple" size="15" style="width:100%; height:auto;"></select>
+	</div>
+<div style="clear:both"></div>
+</@p.td><@p.tr/>
+<@p.td colspan="2" label="department.controlChannels" required="true">
+<input type="hidden"  name="steps" value="${site.finalStep!}"/>
+	<input type="hidden" id="allChannelHide" name="allChannels" value="true" />
+	<input type="hidden" id="allControlChannelHide" name="allControlChannels" value="true" />
+    <ul id="controlSiteTree" class="filetree">
+    	<li><@s.m "cmsUser.site"/>&nbsp;&nbsp;<@s.m "cmsUser.channels"/></li>
+    </ul>
+    <#list siteList as site>
+    <span id="controlChannelIdsContainer${site.id}"></span>
+	</#list>
+	<span id="controlChannelIdsContainer"></span>
+	<div id="controlChannelDialog" title="<@s.m "department.controlChannels"/>" style="display:none;">
+		<label><input type="checkbox" onclick="allControlChannels(this.checked)"/><@s.m "cmsUser.allChannel"/></label>
+		<select id="controlChannels"  multiple="multiple" size="15" style="width:100%; height:auto;"></select>
+	</div>
+<div style="clear:both"></div>
+</@p.td><@p.tr/>
+
+
+
+
+
+<!-- <@p.td colspan="2" label="cmsUser.allDataControl" required="true">
+	<input type="hidden"  name="steps" value="${site.finalStep!}"/>
+	<input type="hidden" id="allChannelHide" name="allChannels" value="true" />
+	<input type="hidden" id="allControlChannelHide" name="allControlChannels" value="true" />
+	<@s.m "cmsUser.allChannel"/>&nbsp;<input type="checkbox" id="allChannel"  checked="checked" onclick="allChannelSelect()" style="margin-right:10px;"/>
+	<@s.m "cmsUser.allChannelControl"/>&nbsp;<input type="checkbox" id="allControlChannel"  checked="checked" onclick="allControlChannelSelect()"/>
+	 
+	<@p.text name="steps" value="1" class="required digits" style="width:40px"/>	
+	<input class="channel-right" id="channel" type="button" value="<@s.m "cmsUser.channels"/>"/>	
+	<span id="channelIdsContainer"></span>
+	<div id="channelDialog" title="<@s.m "cmsUser.channels"/>(${site.name})" style="display:none;">
+		<label><input type="checkbox" onclick="disChannels(this.checked)" checked="checked"/><@s.m "cmsUser.channels.allChannel"/></label>
+		<select id="channels" disabled="disabled" class="disabled" multiple="multiple" size="15" style="width:100%;"></select>
+	</div>
+	  
+<div style="clear:both"></div>
+</@p.td><@p.tr/> -->
+<@p.td colspan="2"><@p.submit code="global.submit" class="submit"/><@p.reset code="global.reset" class="cancel"/></@p.td>
+</@p.form>
+</div>
+<div id="departDialog" title="<@s.m "cms.department"/>(${site.name})" style="display:none;">
+    <ul id="departTree" class="filetree"></ul>
+</div>
+</body>
+</html>

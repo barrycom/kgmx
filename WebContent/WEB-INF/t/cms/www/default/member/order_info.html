@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>个人中心 - ${site.name} - Powered by kgmx</title> <script
+		src="${resSys}/jquery.js" type="text/javascript"></script>
+	<script src="${resSys}/front.js" type="text/javascript"></script>
+	<script src="${resSys}/geo.js" type="text/javascript"></script>
+	<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+	<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js"
+		type="text/javascript"></script>
+	<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+	<!---------------------------------------下拉框------------------------------------------->
+<script type="text/javascript" src="/${res}/js/jquery.min.js"></script>
+<script type="text/javascript">
+	/*下拉框*/
+	$(document).ready(function() {
+		$(".select6_box input,").click(function() {
+			var thisinput = $(this);
+			var thisul = $(this).parent().find("ul");
+			if (thisul.css("display") == "none") {
+				if (thisul.height() > 500) {
+					thisul.css({
+						height : "200" + "px",
+						"overflow-y" : "scroll"
+					})
+				}
+				;
+				thisul.fadeIn("100");
+				thisul.hover(function() {
+				}, function() {
+					thisul.fadeOut("100");
+				})
+				thisul.find("li").click(function() {
+					thisinput.val($(this).text());
+					thisul.fadeOut("100");
+				}).hover(function() {
+					$(this).addClass("hover");
+				}, function() {
+					$(this).removeClass("hover");
+				});
+			} else {
+				thisul.fadeOut("fast");
+			}
+		})
+		$("#submit").click(function() {
+			var endinfo = "";
+			$(".select6_box input:text,").each(function(i) {
+				endinfo = endinfo + (i + 1) + ":" + $(this).val() + ";\n";
+			})
+
+		})
+	});
+</script>
+<!---------------------------------------下拉框------------------------------------------->
+</head>
+
+<body>
+	[#include "../include/header.html"/]
+
+	<!-------------------------内页锚点--------------------------->
+	<div class="ny_nav bg-wgy pagewide2">
+		<div class="pagewide">
+			<div class="ny_nav_icon">
+				<a href="http://www.kegustar.com/">首页</a> > <a href="${base}/member/index.jspx">个人中心</a>
+				> <a href="${base}/member/order_list.jspx">消费记录</a> > <span class="ny_nav_yellow yellow">我的订单</span>
+			</div>
+		</div>
+	</div>
+	<!-------------------------内页锚点--------------------------->
+	 <!-------------------------内页主体内容------------------------>
+<div class="pagewide pad-top pad-bottom">
+
+
+         <div class="person_bookdetail">
+               <div class="person_bookdetail_list">订单编号：<span class="person_bookdetail_list_red">${buy.orderNumber!}</span></div>
+               <div class="person_bookdetail_list">订单状态：[#if buy.orderSta==0]未支付&nbsp;&nbsp;&nbsp;&nbsp;<a href="${base}/content/buy.jspx?contentId=${buy.content.id}&payType=1&orderNum=${buy.orderNumber!}"><font color="red">继续支付</font></a><br>[#else]已支付<br>[/#if]  </div>
+               <div class="person_bookdetail_list">下单时间：<span class="person_bookdetail_list_red">${buy.buyTime?string("yyyy-MM-dd HH:mm:ss")}</span></div>
+               <div class="person_bookdetail_list">应付金额：<span class="person_bookdetail_list_red2">￥${buy.chargeAmount}</span></div>
+               <div class="person_bookdetail_list">支付时间：<span class="person_bookdetail_list_red">${buy.buyTime?string("yyyy-MM-dd HH:mm:ss")}</span></div>
+               <div class="person_bookdetail_list">支付方式：<span class="person_bookdetail_list_red">[#if buy.orderSta==0]未支付 [#else][#if buy.chargeReward==1]微信支付[#else] 支付宝[/#if][/#if]</span></div>
+               <div class="both"></div>
+         </div>
+         
+         
+         <div class="person_bookdetail" style=" padding:0;">
+               <div class="person_bookdetail_title">课程信息</div>
+               <div class="person_bookdetail_content">
+                 <!------------表单-------------->
+                 <table class="person_table2 text-center">
+                    <tr>
+                       <td width="35%" class="person_table_title2">课程名称</td>
+                       <td width="15%" class="person_table_title2">导师</td>
+                       <td width="15%" class="person_table_title2">课时</td>
+                       <td width="15%" class="person_table_title2">开班时间</td>
+                       <td width="20%" class="person_table_title2">价格（元）</td>
+                    </tr>
+                    <tr class="person_table_hui">
+                       <td class="person_table_txt2">${buy.content.title!}</td>
+                       <td class="person_table_txt2">${buy.content.channel.title!}</td>
+                       <td class="person_table_txt2">${buy.content.attr.pxks!}</td>
+                       <td class="person_table_txt2">${buy.content.attr.opentime!}</td>
+                       <td class="person_table_txt2">${buy.chargeAmount}</td>
+                    </tr>
+                   
+                 </table>   
+                 <!------------表单-------------->
+                 <div class="person_bookdetail_list2 text-right">实付金额：<span class="person_bookdetail_list_red2">[#if buy.orderSta==0]未支付 [#else]${buy.chargeAmount!}[/#if]</span></div>
+                 <div class="both"></div>
+               </div>
+         </div> 
+</div>
+<!-------------------------内页主体内容------------------------>
+	[#include "../include/footer.html"/]
+</body>
+</html>

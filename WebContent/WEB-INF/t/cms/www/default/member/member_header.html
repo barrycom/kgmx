@@ -1,0 +1,10 @@
+<div class="toolbar">
+	<div class="toolbar-inner">
+		<a class="logo" target="_blank" href="http://www.jetcms.com"><img
+			width="141" height="50" alt="" src="/${res}/img/member/logo.gif" /></a>
+		[@cms_channel_list]<a class="index" target="_blank" href="${base}/">首页</a>
+		[#list tag_list as c]<a target="_blank" href="${c.url}">${c.name}</a>
+		[/#list] 
+		[/@cms_channel_list] 
+	</div>
+</div>

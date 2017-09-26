@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>课程- ${site.name} - Powered by kgmx</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="${resSys}/geo.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]--> 
+<!---------------------------------------tab切换------------------------------------------->
+<link href="/${res}/css/suncss2.css" rel="stylesheet" type="text/css" />
+<script src="/${res}/js/jquery.tab2.js" type="text/javascript"></script>
+<!---------------------------------------tab切换------------------------------------------->
+<script src="/${res}/js/slick.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#course-slider").slick({
+		dots : false,
+		arrows : false,
+		infinite : true,
+		speed : 750,
+		slidesToShow : 1,
+		slidesToScroll : 1,
+		autoplay : true,
+		autoplaySpeed : 6000 
+	});
+})
+$(function() {
+ 
+Cms.collectCsi("${base}","collectCsiDiv","collect_csi","${content.id}");
+Cms.attachment("${base}","${content.id}","${content.attachments?size}","attach");
+Cms.viewCount("${base}","${content.id}");
+Cms.siteFlow("${base}", location.href, document.referrer,"${site.config.flowSwitch?string}");
+});
+</script>
+
+<script type="text/javascript"> 
+jQuery(document).ready(function($){ 
+$('.content-comment').click(function(){
+	$('html,body').animate({scrollTop:$('#comments-text').offset().top}, 1000)
+	$('#comments-text').focus();
+	});  
+});
+function buyContent(base,contentId){
+	location.href=base+"/content/choosePayment.jspx?contentId="+contentId;
+}
+ 
+$(function(){
+	//设置一个定时器，为BUTTON点击事件用
+	var timer=null;
+	var number1=0;
+
+	//文本输入时改变
+	$('#comments-text').keyup(function(){
+		if(!$(this).val()==''){
+			$('.submit-on').attr("class", "submit-out");
+		}else{
+			$(".submit-out").attr("class", "submit-on");
+		}
+	});
+	
+	//处理输入的内容是文字还是字母的函数
+	function getLength(str){
+		return String(str).replace(/[^\x00-\xff]/g,'aa').length;
+	};
+     
+});
+</script>
+
+<head>
+<body> 
+[#include "../include/header.html"/]
+
+
+<!-------------------------内页锚点--------------------------->
+<div class="ny_nav bg-wgy pagewide2">
+        <div class="pagewide">
+                <div class="ny_nav_icon">
+                      <a href="http://www.kegustar.com/">首页</a> > [#if content.contentCharge??]  [#if content.contentCharge.chargeAmount gt 0]<a href="${base}/kcdh/index.jhtml?charge=0">课程导览 </a>[#else]<a href="${base}/kcdh/index.jhtml?charge=1">公开课程</a>[/#if][#else]<a href="${base}/kcdh/index.jhtml?charge=1">公开课程</a>[/#if]   > <a href="${channel.url!}">${channel.name!}</a> > <span class="ny_nav_yellow yellow">${content.title}</span>
+                </div>
+        </div>
+</div>
+<!-------------------------内页锚点--------------------------->
+<!-------------------------内页主体内容------------------------>
+<div class="pagewide pad-top pad-bottom"> 
+                 <!--------大标题------->
+                 <div class="all_course_titleg">
+                       <div class="all_course_title2g">${content.title}</div>
+                 </div>
+                 <!--------大标题-------> 
+                 <!--------左边------->
+                 <div class="all_course_detail_left fl"> 
+                       <!-------购买介绍------->
+                       <div class="course_buy_intro">
+                               <img src="${content.titleImg!}">
+                               <div class="fl course_buy_intro_txt">
+                                     <span class="course_buy_intro_txt_yellow">导师：</span>[#if content.channel.id==163] 	[@cms_channel_list parentId='75' showIds=content.attr.channelIds orderBy='4'] [#list tag_list as c][#if c.show==1]${c.title!}&nbsp;&nbsp;[/#if][/#list][/@cms_channel_list] [#else]${content.author!}[/#if]<br>
+                                     <span class="course_buy_intro_txt_yellow">课时：</span>${content.attr.pxks!}<br>
+                                     <span class="course_buy_intro_txt_yellow">原&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：</span><strong>￥${content.attr.fwjg!}</strong><br> 
+                                     <span class="course_buy_intro_txt_yellow">优惠价格(有推荐人时适用)：</span><strong>￥${content.chargeAmount!}</strong><br> 
+                                      <!-------<span class="course_buy_intro_txt_yellow">开班时间：</span>${content.attr.opentime?substring(0,7)} <br>------->
+                                
+                                     <div class="course_buy_number">学员评价：<span class="course_buy_intro_txt_red">[@cms_comment_list siteId=site.id contentId=content.id]${tag_list?size!}[/@cms_comment_list]</span></div>
+                                     <div class="both"></div>
+                               </div>
+                               <button class="fr course_buy_ljgm text-left white" onclick="buyContent('${base}','${content.id}');">立即购买</button>
+                               <div class="both"></div>
+                       </div>
+                       <!-------购买介绍------->
+                       
+                       
+                       
+                       <!-------课程介绍------->
+                       <div class="course_intro">
+                       
+                       <!---------------------------->
+                       <div class="sun">
+                        <div class="nTab" >
+                        <div class="TabTitle">
+                            <ul id="myTab2">
+                                <li class="active" onclick="nTabs(this,0);">课程介绍</li>
+                                <!-------<li class="normal" onclick="nTabs(this,1);">课程目录</li>------->
+                                <li class="normal" onclick="nTabs(this,2);">学员评价 <span class="course_buy_intro_txt_red">（[@cms_comment_list siteId=site.id contentId=content.id   ]
+          
+           ${tag_list?size!}
+        [/@cms_comment_list]）</span></li>
+                                <li class="normal" onclick="nTabs(this,3);">购买记录</li>
+                            </ul>
+                        </div>
+                        <div class="TabContent"> 
+                            <div id="myTab2_Content0" class="xxtab">
+                                 ${content.txt!} 
+                            </div>
+                    
+                    
+                          <!-------  <div id="myTab2_Content1" class="none">
+                                   ${content.txt1!}
+                            </div>------->
+                            
+                            
+                            <div id="myTab2_Content2" class="none">
+                                    
+      [@cms_comment_page contentId=content.id count='15' checked='1']
+		  [#if tag_pagination.list?size = 0]
+		        <span>暂无相关评论！</span>
+		  [#else]
+			   [#list tag_pagination.list as c]
+			        <!-------------------->
+                     <div class="my_question_news_listpic">
+                           <img src="${(c.commentUser.userImg)!'${site.defImg!}'}">
+                           <div class="my_question_newsright" style=" width:814px; margin-bottom:20px;">
+                                 <div class="gray2" style=" margin-bottom:10px;">
+                                       <div class="my_question_newsright_txt">
+                                             <span class="fl red">[#if c.commentUser.username??]${c.commentUser.username?substring(0,4)}**** [#else]匿名网友[/#if]</span>
+                                             <ul class="course_star2">
+                                                 <li></li>
+                                                 <li></li>
+                                                 <li></li>
+                                                 <li></li>
+                                                 <li></li>
+                                             </ul>
+                                             <div class="both"></div>
+                                       </div>
+                                       <span class="my_question_newsright_txt">${content.title!}</span>&nbsp;&nbsp;&nbsp;&nbsp;${c.createTime}
+                                 </div> 
+                                 ${c.textHtml!}
+                               </div>   
+                           <div class="both"></div>
+                     </div>
+                           
+				[/#list]
+		  		  <div class="digg">[@cms_pagination sysPage='1'/]</div>	
+		  [/#if]
+		  
+		  [/@cms_comment_page]
+    
+         
+                                  
+                                  
+                                  
+                            </div>
+                            
+                            
+                            <div id="myTab2_Content3" class="none">
+                                  <!------------表单-------------->
+                                   [@cms_orders_page id=content.id]
+                                  <table class="person_table2 text-center" style=" margin-bottom:30px; margin-top:0;">
+                                     
+                              
+									 [#if tag_pagination.list?size = 0]
+									 		 <tr class="person_table_hui" style=" border:1px solid #f1f2f4;"> <span>暂无购买记录！</span>    </tr>
+									  [#else]
+									  <tr>
+                                        <td width="15%" class="person_table_title2">学员</td>
+                                        <td width="30%" class="person_table_title2">用户名</td>
+                                        <td width="30%" class="person_table_title2">课程</td>
+                                        <td width="25%" class="person_table_title2">成交时间</td>
+                                     </tr>
+	                                     [#list tag_pagination.list as c] 
+		                                     <tr class="person_table_hui" style=" border:1px solid #f1f2f4;">
+		                                        <td class="person_table_txt2">
+		                                            <div style=" padding-top:16px;"><img src="${(c.buyUser.userImg)!'${site.defImg!}'}" class="course_txiang"></div>
+		                                        </td>
+		                                        <td class="person_table_txt3">[#if c.buyUser.username??]${c.buyUser.username?substring(0,3)}****${c.buyUser.username?substring(7,11)}[#else]匿名网友[/#if]</td>
+		                                        <td class="person_table_txt2">${content.title!}</td>
+		                                        <td class="person_table_txt2">${c.buyTime!}</td>
+		                                     </tr>
+	                                     [/#list]
+	                                        
+                                     [/#if]
+                                     
+                                  </table>   
+                                  <div class="digg">[@cms_pagination sysPage='1'/]</div>	
+                                   [/@cms_orders_page]
+                                  <!------------表单-------------->
+                                  
+                                  
+                                 <!--   
+                                  <div class="digg" style=" margin-bottom:20px;"><span class="disabled"> < </span><span class="current">1</span><a href="#?page=2">2</a><a href="#?page=3">3</a><a href="#?page=4">4</a><a href="#?page=5">5</a><a href="#?page=6">6</a><a href="#?page=7">7</a>...<a href="#?page=199">199</a><a href="#?page=200">200</a><a href="#?page=2"> > </a></div>
+                                  ------翻页-----
+                                   -->
+                                  
+                            </div>
+                    
+                    
+                    
+                        </div>
+                        </div> 
+                       </div>
+                       <!---------------------------->
+                       
+                       </div>
+                       <!-------课程介绍------->
+                       
+                       
+                       
+                 </div>
+                 <!--------左边------->
+                 
+                 
+                 
+                 
+                 
+                 
+                 <!--------右边------->
+                    <!--------右边------->
+               
+              [#if content.channel.id==163] 	
+                  
+		               <div class="all_course_detail_right fr" style="overflow: hidden;">
+                         <div class="course_right_content" id="course-slider">     
+
+
+
+                    [@cms_channel_list parentId='75' showIds=content.attr.channelIds orderBy='4']  
+                         [#list tag_list as c]
+                                     [#if c.show==1]
+                                     <div class="fl" style="width: 216px; padding: 18px;">
+			                            
+		                             
+		                               <img src="${(c.titleImg)!'${site.defImg!}'}" class="course_right_touxiang">
+                               <div class="text-center course_right_touxiang_name">${c.title!}</div>
+                                     <div class="course_right_star">
+                              
+                                               <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png">
+                                        
+                                     
+                                     </div>
+                                     <br>
+                                     <span class="course_right_touxiang_name_yellow">投资理念：</span><br>
+                                    <span class="course_right_touxiang_name_yellow">
+		                                    ${c.txt!}
+		                               </span>
+		                              
+		                                </div> 
+		                              
+                                    [/#if] 
+						 [/#list] 
+				    [/@cms_channel_list]
+		                         
+		                         
+		                         </div>
+		            <div class="both"></div>
+		                 <!-- ------右边----- --> 
+		                
+                                      
+              [#else]
+                     <div class="all_course_detail_right fr">
+                         <div class="course_right_content">
+                               <img src="${(channel.titleImg)!'${site.defImg!}'}" class="course_right_touxiang">
+                               <div class="text-center course_right_touxiang_name">${channel.title!}</div>
+                                     <div class="course_right_star">
+                                    [#if channel.attr??]
+                                        [#if channel.attr.score??]
+                                        
+                                         [#if channel.attr.score=='1']
+                                              <img src="/${res}/images/star.png">
+                                            [#elseif channel.attr.score=='2']
+                                               <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png">
+                                            [#elseif channel.attr.score=='3']
+                                             <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png">
+                                            [#elseif channel.attr.score=='4']
+                                               <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png">
+                                            [#elseif channel.attr.score=='5']
+                                               <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png"> <img src="/${res}/images/star.png">
+                                            [/#if]
+                                             
+                                        [#else]
+                                            <img src="/${res}/images/star.png">
+                                        [/#if]
+                                    [#else]
+                                       <img src="/${res}/images/star.png">
+                                    [/#if]
+                                     
+                                     </div>
+                                     <br>
+                                     <span class="course_right_touxiang_name_yellow">投资理念：</span><br>
+                                     <span style="word-wrap:break-word; ">${channel.txt!}</span> 
+                         </div> <div class="both"></div>
+                 
+              [/#if]
+               
+               
+                  
+                         <div class="help_left_title white text-center" style=" letter-spacing:1px;">相关视频</div>
+                         <ul class="course_right_list">
+                           [#if content.channel.id==163] 	
+                                [@cms_content_list  charge='0' option='1' count='5' orderBy='4' titLen='13' channelId='163']
+			                    [#list tag_list as a]
+			                     
+					                <li>
+							         <a href="${a.url!}"  title="${a.title!}" target="_blank"> 
+	                                     <img src="${(a.titleImg)!'${site.defImg!}'}"/>
+	                                     <div class="course_right_list_name">${a.channel.title!}</div>
+	                                        [@text_cut s=a.title len=titLen /]
+	                                     <div class="both"></div>
+                                     </a>
+                                   </li>   
+		                        
+		                    [/#list]
+		                  [/@cms_content_list] 
+                           
+                           [#else]
+	                          [@cms_content_list  charge='1' option='1' count='5' orderBy='4' titLen='13' channelId=channel.id]
+			                    [#list tag_list as a]
+			                     [#if a.catalog?size gt 0] 
+				                     [#list  a.catalog as c] 
+					                <li>
+							         <a href="${base}/member/my_order_sy_video.jspx?id=${a.id!}"  title="${a.title}" target="_blank"> 
+	                                     <img src="${(channel.titleImg)!'${site.defImg!}'}"/>
+	                                     <div class="course_right_list_name">${channel.title!}</div>
+	                                        [@text_cut s=a.title len=titLen /]
+	                                     <div class="both"></div>
+                                     </a>
+                                   </li>  
+					                       
+				                    [/#list]
+                   
+				                [/#if]
+		                    
+		                    
+		                    
+		                    
+		                    
+		                        
+		                        
+		                    [/#list]
+		                  [/@cms_content_list] 
+		                  
+		                  [/#if]
+                         </ul>
+                 </div>
+                 <div class="both"></div>
+                 </div> 
+                 <!--------右边------->
+                 
+                 
+                 
+                 
+                 <div class="both"></div>
+         
+
+         
+</div>
+<!-------------------------内页主体内容------------------------>
+
+<!-- 
+<div class="main container clearfix">
+  <section class="content_w850">
+    <h1>${content.title}<a class="position" href="${base}/news/index.jhtml">${channel.name}</a></h1>
+    <div class="content-inf">发布时间：${content.releaseDate}&nbsp;&nbsp;作者：${content.author!'本站编辑'}&nbsp;&nbsp;来源：${content.origin!'本站原创'}&nbsp;&nbsp;浏览次数：<span id="views"></span>
+    <div class="content-action">
+	     [#if channel.commentControl!=2]
+		    <a class="content-comment">我有话说</a>
+		 [/#if]
+	     [#if channel.allowShare]
+	      | <span class="content-share">分享
+              [#include "inc_share.html"/]
+	     </span>
+	     [/#if]
+	      | <a class="content-collect" id="collectCsiDiv"></a>
+	    </div>
+    </div>
+    <div class="content-txt">
+   		[#if preview??]
+           [@text_cut s=txt! len=100  append="..."/]<br/>
+                               您需要更高的权限浏览全部内容!<br/>以下会员组可浏览全部内容:
+           [#list groups as g]
+              ${g.name!}[#if g_has_next],[/#if]
+           [/#list]              
+          [#else]
+            ${txt!}
+          [/#if]
+    </div>
+    分页
+    <div class="pagebar">[#include "../style_page/content.html"/]</div>
+  
+    <div class="inter clearfix"> 
+      [#if channel.allowUpdown]
+      <div class="ups"><a onclick="Cms.up('${base}',${content.id},${content.ups});"><span id="ups"></span></a></div>
+      <div class="downs"><a onclick="Cms.down('${base}',${content.id},${content.downs});"><span id="downs"></span></a></div>
+      [/#if]
+      [#if channel.allowScore]
+      <div class="score">
+        [#include "inc_score.html"/]
+      </div>
+      [/#if]
+    </div>
+    <div class="content-link clearfix">
+      <span class="prev-content"><i></i>上一篇：[@cms_content id=content.id next='1' channelId=channel.id][#if tag_bean??]<a href="${tag_bean.url}">[@text_cut s=tag_bean.title len=20 append='...'/]</a>[#else]没有了[/#if][/@cms_content]</span>
+      <span class="next-content">下一篇：[@cms_content id=content.id next='0' channelId=channel.id][#if tag_bean??]<a href="${tag_bean.url}">[@text_cut s=tag_bean.title len=20 append='...'/]</a>[#else]没有了[/#if][/@cms_content]<i></i></span>
+    </div>
+    [#if channel.commentControl!=2]
+      [#include "inc_comment_input.html"/]
+      [#include "inc_comment_list.html"/]
+    [/#if]
+  </section>
+  [#include "../include/right310.html"/]
+</div> -->
+[#include "../include/footer.html"/] 
+</body>
+</html>

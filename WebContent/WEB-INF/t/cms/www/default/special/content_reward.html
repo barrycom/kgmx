@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>支付界面- ${site.name} - Powered by kgmx</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<script src="${resSys}/geo.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]--> 
+<script  type="text/javascript">
+function randomReward(){
+	$.get("${base}/reward/random.jspx", {
+	}, function(data) {
+		$("#rewardAmount").val(data);
+	});
+}
+$(function() {
+	 
+	  $("#acode").load("${base}/content/selectPay.jspx?contentId=${contentId!}&orderNumber=${orderNumber!}&payMethod=2&chargeReward=${type!}&rewardAmount=${randomOne!}");
+ 
+});
+</script>
+
+<head>
+
+<body  >
+ 正在连接支付宝平台......
+ <div id="acode"></div>
+</body>
+</html>

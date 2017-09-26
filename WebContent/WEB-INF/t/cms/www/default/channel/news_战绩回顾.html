@@ -1,0 +1,123 @@
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="keywords" content="${channel.keywords!}" />
+<meta http-equiv="description" content="${channel.description!}" />
+<title>${channel.title!channel.name} - ${site.name} - Powered by
+	kgmx</title>
+<script src="${resSys}/jquery.js" type="text/javascript"></script>
+<script src="${resSys}/front.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+<script type="text/javascript">
+	$(function() {
+		Cms.channelViewCount("${base}", "${channel.id}");
+		Cms.siteFlow("${base}", location.href, document.referrer,
+				"${site.config.flowSwitch?string}");
+	});
+</script>
+<head>
+<body>
+	[#include "../include/header.html"/]  
+	<!-------------------------内页锚点--------------------------->
+	<!-------------------------内页锚点--------------------------->
+<div class="ny_nav bg-wgy pagewide2">
+        <div class="pagewide">
+                <div class="ny_nav_icon">
+                      <a href="http://www.kegustar.com/">首页</a> > <span class="ny_nav_yellow yellow">战绩回顾</span>
+                </div>
+        </div>
+</div>
+<!-------------------------内页锚点--------------------------->
+	<!-------------------------内页锚点---------------------------> 
+	<!-------------------------内页主体内容------------------------>
+	<div class="pagewide pad-top pad-bottom"> 
+                 <!--------大标题-------> 
+                 <div class="all_course_title">
+                       <div class="all_course_title2 text-center">
+                             <span class="all_course_title3">战绩回顾</span><br>
+                             REVIEW
+                       </div>
+                 </div>
+                 <!--------大标题-------> 
+ 
+                 <!--------选择导师------->
+                 <div class="my_question_daoshi">
+                 
+                       <div class="fl daoshi_list2">导师：</div>
+                       <div class="my_question_kecheng_list fr"> 
+                             <!--------->
+                             <a href="${base}/zjhg/index.jhtml"><div  [#if channel.parent??]class="daoshi_list" [#else]class="daoshi_list active"[/#if]>不限</div></a>
+                             
+                             [@cms_channel_list parentId='142' orderBy='4'] 
+                                [#list tag_list as c]
+                                    <a href="${c.url}"><div [#if channel.id==c.id] class="daoshi_list active"[#else] class="daoshi_list  "[/#if]>${c.name}</div></a> 
+								[/#list]
+							 [/@cms_channel_list] 
+                             <!--------->
+                             <div class="both"></div>
+                       </div>
+                       <div class="both"></div> 
+                 </div>
+                 <!--------选择导师------->
+                  
+                 <!--------列表------->
+                 
+                    
+                        <!--------列表------->
+                 <ul class="zjhg_list">
+                       [@cms_content_page   orderBy='4'  count='10' channelId=channel.id channelOption='1' dateFormat='yyyy-MM-dd' currPageClass="currPageClass" norPageClass="norPageClass"]
+				        [#list tag_pagination.list as a]
+				        
+				             <li>
+                              
+                             <div id="top${a_index+1}"></div>
+ 
+                             <div class="fl zjhg_video_lefttxt" >
+                                 <div [#if a_index<=2] style=" padding-left:60px;" [/#if] class="zjhg_video_lefttxt_title"><a href="${base}/web/zjhginfo.jspx?contentId=${a.id}"> ${a.title!}</a></div>
+                                 ${a.description!}
+                             </div>
+                             <div class="zjhg_video_img fr">
+                                
+                                  <!---<img src="${a.titleImg!}" width="484" height="344"/>--->
+                                  <img src="${a.titleImg!}" width="100%" width="484"    style="min-width: 484px;" />
+
+                                 <div class="zjhg_video">
+                                     <div class="fl zjhg_video_title">
+                                     案例课程：<span class="yellow">[@text_cut s=a.title len=16 append=' ……' /]</span><br>
+                                     课程时间：<span class="yellow">${a.attr.opentime!}</span>
+                                     </div>
+                                     [#if a.catalog?size gt 0 ]
+	                                   [#list a.catalog as c]
+	                                      [#if c_index=0]
+	                                            <a href="${base}/member/my_order_sy_video.jspx?id=${a.id!}"><div class="fr zjhg_video_see white">点击播放课程</div></a>
+	                                      [/#if]
+	                                   [/#list]
+                                   [#else]
+                                        
+                                   [/#if] 
+                                     
+                                 </div>
+                              </div>   
+                       </li>
+				        
+				        
+				         
+				        [/#list]
+				         <div class="both"></div>
+                       </ul>
+				        <div class="digg">
+				         [#include "../include/page.html"/]
+				        </div>
+				        [/@cms_content_page]
+                    
+                  
+                 <div class="both"></div>
+                 <!--------列表------->  
+</div>
+<!-------------------------内页主体内容------------------------>  
+[#include "../include/footer.html"/] 
+</body>
+</html>

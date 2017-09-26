@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/jetcms_sys/head.html"/>
+<script type="text/javascript">
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optDelete() {
+	if(Pn.checkedCount('ids')<=0) {
+		$.alert("<@s.m 'global.prompt'/>","<@s.m 'error.checkRecord'/>");
+		return;
+	}
+	$.confirm(doDelete,"<@s.m 'global.confirm'/>","<@s.m 'global.confirm.delete'/>");
+}
+function doDelete(){
+	var f = getTableForm();
+	f.action="o_delete.do";
+	f.submit();
+}
+
+function queryhy(obj){
+	var select=document.getElementById('queryhyId'); 
+	 
+	select.innerHTML = "";
+
+	for(var i=0;i<select.childNodes.length;i++){
+		select.removeChild(select.options[0]);
+		select.remove(0);
+		select.options[0] = null;
+	}
+	select.add(new Option("---会员---","")); 
+	
+	
+	var select1=document.getElementById('querydlId'); 
+	 
+	select1.innerHTML = "";
+
+	for(var i=0;i<select1.childNodes.length;i++){
+		select1.removeChild(select1.options[0]);
+		select1.remove(0);
+		select1.options[0] = null;
+	}
+	select1.add(new Option("---代理---","")); 
+	
+	
+	if(obj!=""){ 
+		$.ajax({
+			type : 'POST',
+			url : 'queryhy.do',
+			data : {
+				querysyId : obj
+			},
+			success : function(data) {
+				 
+				if (data.success) { 
+					for(var k in data.map){  //通过定义一个局部变量k遍历获取到了map中所有的key值  
+						  
+						  var value=data.map[k]; //获取到了key所对应的value的值！    
+						  select.add(new Option(value, k+""));
+					 }  
+	
+				}else{
+					alert(data.msg);
+				}
+			},
+			dataType : "json"
+		});
+	}
+}
+
+
+function queryhyIdChange(obj){
+	var select=document.getElementById('querydlId'); 
+	 
+	select.innerHTML = "";
+
+	for(var i=0;i<select.childNodes.length;i++){
+		select.removeChild(select.options[0]);
+		select.remove(0);
+		select.options[0] = null;
+	}
+	select.add(new Option("---代理---","")); 
+	if(obj!=""){ 
+		$.ajax({
+			type : 'POST',
+			url : 'querydl.do',
+			data : {
+				querysyId : obj
+			},
+			success : function(data) {
+				 
+				if (data.success) {
+					 
+					for(var k in data.map){  //通过定义一个局部变量k遍历获取到了map中所有的key值  
+						  
+						  var value=data.map[k]; //获取到了key所对应的value的值！    
+						  select.add(new Option(value, k+""));
+					 }  
+	
+				}else{
+					alert(data.msg);
+				}
+			},
+			dataType : "json"
+		});
+	}
+}
+</script>
+</head>
+<body>
+<div class="page-positon ove">
+  <div class="position-div"><@s.m "global.position"/>: 消费明细 > ${queryuser.username!}<#if queryuser.realname??> (${queryuser.realname})</#if>><@s.m "global.list"/></div>
+</div>
+<!-- <div class="box-positon">
+	<form class="ropt">
+		<input class="add" type="submit" value="<@s.m "global.add"/>" onclick="this.form.action='v_add.do';"/>
+	</form>
+	<div class="clear"></div>
+</div> -->
+<div class="box-positon ck">
+	<form class="ropt">
+		<input type="button" value="<@s.m "global.backToList"/>" onclick="history.back();" class="return-button"/>
+	</form>
+	<div class="clear"></div>
+</div>
+<div class="body-box">
+ 
+<form id="tableForm" method="post">
+<input type="hidden" name="pageNo" value="${pageNo!}"/>
+<@p.table value=pagination;order,i,has_next><#rt/> 
+	<@p.column title="课程ID" align="center">${order.content.id}</@p.column><#t/>
+	<@p.column code="cmsUser.orderid" align="center">
+		<div  >${order.orderNumber}</div>
+	</@p.column><#t/>
+	<@p.column code="cmsUser.ordertime" align="center">
+		 <div>${order.buyTime?string("yyyy-MM-dd HH:mm:ss")}</div>
+	</@p.column><#t/>
+    <@p.column code="cmsUser.kc" align="center">
+		 <div> ${order.content.title}</div>
+	</@p.column><#t/>
+	 <@p.column code="cmsUser.payje" align="center">
+		 <div>${order.chargeAmount}</div>
+	</@p.column><#t/> 
+</@p.table>
+<div>
+<!-- <input class="del-button" type="button" value="<@s.m "global.delete"/>" onclick="optDelete();"/ style="float:left;"></div> -->
+</form>
+</div>
+<#include "/common/alert_message.html"/>
+</body>
+</html>

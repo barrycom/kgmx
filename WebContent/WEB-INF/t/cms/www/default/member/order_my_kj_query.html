@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>个人中心 - ${site.name} - Powered by kgmx</title> <script
+		src="${resSys}/jquery.js" type="text/javascript"></script>
+	<script src="${resSys}/front.js" type="text/javascript"></script>
+	<script src="${resSys}/geo.js" type="text/javascript"></script>
+	<link type="text/css" rel="stylesheet" href="/${res}/css/gg.css" />
+	<script src="${base}/thirdparty/My97DatePicker/WdatePicker.js"
+		type="text/javascript"></script>
+	<!--[if lt IE 9]> 
+<script src="/${res}/js/html5shiv.min.js"></script>
+<script src="/${res}/js/respond.min.js"></script>
+<![endif]-->
+	<!---------------------------------------下拉框------------------------------------------->
+<script type="text/javascript" src="/${res}/js/jquery.min.js"></script>
+<script type="text/javascript">
+	/*下拉框*/
+	$(document).ready(function() {
+		$(".select6_box input,").click(function() {
+			var thisinput = $(this);
+			var thisul = $(this).parent().find("ul");
+			if (thisul.css("display") == "none") {
+				if (thisul.height() > 500) {
+					thisul.css({
+						height : "200" + "px",
+						"overflow-y" : "scroll"
+					})
+				}
+				;
+				thisul.fadeIn("100");
+				thisul.hover(function() {
+				}, function() {
+					thisul.fadeOut("100");
+				})
+				thisul.find("li").click(function() {
+					thisinput.val($(this).text());
+					thisul.fadeOut("100");
+				}).hover(function() {
+					$(this).addClass("hover");
+				}, function() {
+					$(this).removeClass("hover");
+				});
+			} else {
+				thisul.fadeOut("fast");
+			}
+		})
+		$("#submit").click(function() {
+			var endinfo = "";
+			$(".select6_box input:text,").each(function(i) {
+				endinfo = endinfo + (i + 1) + ":" + $(this).val() + ";\n";
+			})
+
+		})
+	});
+</script>
+<!---------------------------------------下拉框------------------------------------------->
+</head>
+
+<body>
+	[#include "../include/header.html"/]
+
+	<!-------------------------内页锚点--------------------------->
+	<div class="ny_nav bg-wgy pagewide2">
+		<div class="pagewide">
+			<div class="ny_nav_icon">
+				<a href="http://www.kegustar.com/">首页</a> > <a href="${base}/member/index.jspx">个人中心</a>
+				> <a href="${base}/member/my_order_list.jspx">学习记录</a> > <a href="${base}/member/my_order_kj_list.jspx"><span
+					class="ny_nav_yellow yellow">我的课件</span></a>
+			</div>
+		</div>
+	</div>
+	<!-------------------------内页锚点--------------------------->
+	<!-------------------------内页主体内容------------------------>
+	<div class="pagewide pad-top pad-bottom">
+
+
+		<div class="fl person_left">
+			<!--------学习记录------->
+			<div class="person_left_title white">学习记录</div>
+			<ul class="person_left_list">
+				<a href="${base}/member/my_order_list.jspx"><li  >我的高级课</li></a>
+					<a href="${base}/member/my_order_kjls_list.jspx"><li  class="active">我的课件</li></a>
+				<a href="${base}/member/collection_list.jspx"><li>我的收藏</li></a>
+				<a href="${base}/member/myguestbook.jspx"><li>我的提问</li></a>
+			</ul>
+			<!--------学习记录------->
+			<!--------消费记录------->
+			<div class="person_left_title2 white">消费记录</div>
+			<ul class="person_left_list">
+				<a href="${base}/member/order_list.jspx"><li>我的订单</li></a>
+			</ul>
+			<!--------消费记录------->
+			<!--------账号管理------->
+			<div class="person_left_title3 white">账号管理</div>
+			<ul class="person_left_list">
+				<a href="${base}/member/index.jspx"><li>基本信息</li></a>
+				<a href="${base}/member/portrait.jspx"><li>个人头像</li></a>
+				<a href="${base}/member/pwd.jspx"><li>安全信息</li></a>
+			</ul>
+			<!--------账号管理------->
+		 
+			<div class="person_left_title4 white">消息中心</div>
+			<ul class="person_left_list">
+				  <li><a href="${base}/member/message_mng.jspx ">我的信息</a></li>
+                     <li><a href="${base}/guestbook.jspx"><li>意见反馈</li></a>
+			</ul> 
+			 
+		</div>    
+
+           
+          <div class="fr person_right">
+                 <div class="person_right_title">课件目录</div>
+               <form action="${base}/member/my_order_kj_list.jspx" method="post" style=" margin-top:15px;">
+          <font size="2">   授课导师：</font>
+          <select id="schannelId" class="person_jiben_out select" style=" width:102px;">
+              [#list channelList as list]
+                [#if list.id!=163] <option value="${list.id!}"  [#if list.show==1]selected="selected" [/#if]>${list.title!}</option>[/#if]
+              [/#list]
+          </select> 
+         <input type="button" onclick="querys();" value="查询" class="person_submit text-center bg-y white" style=" cursor:pointer; height:40px; width:100px;">
+         <script>
+             function querys(){ 
+            	 var orderTime = $("#orderTime").val(); 
+            	 var schannelId = $("#schannelId").find("option:selected").val();
+              location.href="${base}/member/my_order_kj_list.jspx?&schannelId="+schannelId; 
+             }
+         </script>
+        </form>
+                 <!------------表单-------------->
+                 <table class="person_table text-center">
+                    <tr class="bg-y person_table_title">
+                       <td width="15%" class="person_table_txt">课件导师</td> 
+                       <td width="35%" class="person_table_txt">课件标题</td>
+                       <td width="10%" class="person_table_txt">课件密码</td>   
+                       <td width="10%" class="person_table_txt">课件类型</td>   
+                       <td width="15%" class="person_table_txt">操作</td>
+                    </tr>
+                   
+                    [#if contentKjs?size gt 0] 
+	                     [#list contentKjs as c] 
+	                      
+		                        <tr class="person_table_hui"> 
+			                       <td class="person_table_txt2">${c.content.channel.title!}</td>
+			                       <td class="person_table_txt2">${c.name!}</td> 
+			                          <td class="person_table_txt2">${c.pathPass!}</td> 
+			                       <td class="person_table_txt2">${c.content.attr.classType!}</td> 
+			                       <td class="person_table_txt2   "> 
+			                           <a  href="${base}/member/my_order_kj_video.jspx?id=${c.content.id!}&kjid=${c.id!}"><div class="person_table_see">查看课件</div>  </a>
+					               </td>
+			                    </tr> 
+	                    [/#list]
+                    [#else]
+				         <tr class="person_table_hui"> 
+		                       <td class="person_table_txt2">暂无课件！</td>
+		                       <td class="person_table_txt2"></td> 
+		                       <td class="person_table_txt2"></td> 
+		                       <td class="person_table_txt2  "> 
+		                        </td>
+		                    </tr>
+				    [/#if] 
+                 </table>   
+                 <!------------表单-------------->
+         </div>
+         
+         
+         <div class="both"></div>
+         
+
+         
+</div>
+<!-------------------------内页主体内容------------------------>
+
+
+
+ 
+	[#include "../include/footer.html"/]
+</body>
+</html>
